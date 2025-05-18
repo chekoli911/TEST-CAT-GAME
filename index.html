@@ -459,12 +459,12 @@ if (score >= 110) {
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
       if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * 1.5;
-        zloiY += (dzY / distZloi) * 1.5;
+        zloiX += (dzX / distZloi) * (window.innerWidth < 600 ? 0.75 : 1.5);
+        zloiY += (dzY / distZloi) * (window.innerWidth < 600 ? 0.75 : 1.5);
       }
             if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * 0.35;
-        zloiY += (dzY / distZloi) * 0.35;
+        zloiX += (dzX / distZloi) * (window.innerWidth < 600 ? 0.175 : 0.35);
+        zloiY += (dzY / distZloi) * (window.innerWidth < 600 ? 0.175 : 0.35);
       }
     }
 
