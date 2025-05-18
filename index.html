@@ -308,6 +308,7 @@ let mouseAppearTime = 0;
         gameRunning = false;
         restartButton.style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showTop50Button').style.display = 'block';
         return;
       }
       }
@@ -324,6 +325,7 @@ let mouseAppearTime = 0;
           gameRunning = false;
           restartButton.style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showTop50Button').style.display = 'block';
         }
       }, 1000);
     }
@@ -559,6 +561,7 @@ if (score >= 110) {
         gameRunning = false;
         restartButton.style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showTop50Button').style.display = 'block';
         return;
       }
       }
@@ -718,5 +721,44 @@ setTimeout(() => {
     }
   }, 200);
 </script>
+
+<div id="top50Container" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
+  <h3>Топ-50 игроков</h3>
+  <ul id="top50List" style="padding-left:20px; font-size:16px;"></ul>
+  <button onclick="document.getElementById('top50Container').style.display='none'">Закрыть</button>
+</div>
+<button id="showTop50Button" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
+
+
+<script>
+document.getElementById("showTop50Button").addEventListener("click", () => {
+  const list = document.getElementById("top50List");
+  list.innerHTML = "";
+
+  db.ref("highscores").once("value").then(snapshot => {
+    const uniqueSet = new Set();
+    const scores = [];
+
+    snapshot.forEach(child => {
+      const entry = child.val();
+      const key = `${entry.name}-${entry.score}`;
+      if (!uniqueSet.has(key)) {
+        uniqueSet.add(key);
+        scores.push(entry);
+      }
+    });
+
+    scores.sort((a, b) => b.score - a.score);
+    scores.slice(0, 50).forEach(entry => {
+      const li = document.createElement("li");
+      li.textContent = `${entry.name}: ${entry.score}`;
+      list.appendChild(li);
+    });
+
+    document.getElementById("top50Container").style.display = "block";
+  });
+});
+</script>
+
 </body>
 </html>
