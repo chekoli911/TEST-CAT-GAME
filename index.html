@@ -14,6 +14,28 @@ html, body {
 }
 
 canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+@media (max-width: 500px) {
+  canvas {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+canvas {
   width: 100vw !important;
   height: auto !important;
   max-height: 100vh;
@@ -720,6 +742,28 @@ setTimeout(() => {
 </script>
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+@media (max-width: 500px) {
+  canvas {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+
 html, body {
   margin: 0;
   padding: 0;
