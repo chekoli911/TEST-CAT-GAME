@@ -258,6 +258,10 @@ function loadHighscores() {
     <div id="stick"></div>
   </div>
   <button id="restartButton">Сыграть ещё</button>
+<button id="shareButton" style="display: none; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); padding: 12px 24px; font-size: 18px; background: #34aadf; color: white; border: none; border-radius: 8px; z-index: 20;">
+  Поделиться в Telegram
+</button>
+
   <audio id="crunchSound" src="crunch.mp3"></audio>
   <audio id="hitSound" src="dog-bark-type-06-293299_trimmed.mp3"></audio>
   <audio id="mouseSound" src="intro-sound-2-269294.mp3"></audio>
@@ -369,6 +373,7 @@ let mouseAppearTime = 0;
         if (lives <= 0) {
         gameRunning = false;
         restartButton.style.display = 'block';
+      document.getElementById('shareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
@@ -392,6 +397,7 @@ requestAnimationFrame(gameLoop);
           clearInterval(timerInterval);
           gameRunning = false;
           restartButton.style.display = 'block';
+      document.getElementById('shareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         }
@@ -633,6 +639,7 @@ if (score >= 110) {
         if (lives <= 0) {
         gameRunning = false;
         restartButton.style.display = 'block';
+      document.getElementById('shareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
@@ -895,5 +902,14 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
 });
 </script>
 
+
+<script>
+document.getElementById("shareButton").addEventListener("click", () => {
+  const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить 👉 https://chekoli911.github.io/cat-game/`;
+  const telegramUrl = `https://t.me/share/url?url=https://chekoli911.github.io/cat-game/&text=${encodeURIComponent(shareText)}`;
+  window.open(telegramUrl, '_blank');
+});
+</script>
 </body>
 </html>
+
