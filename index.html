@@ -268,6 +268,23 @@ function loadHighscores() {
 }
 </style>
 
+
+<style>
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#desktopShareButton.animate {
+  animation: slideUpFade 0.6s ease-out forwards;
+}
+</style>
+
 </head>
 <body>
   <canvas id="game"></canvas>
@@ -401,7 +418,7 @@ let mouseAppearTime = 0;
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-      document.getElementById('desktopShareButton').style.display = 'block';
+      const btn = document.getElementById('desktopShareButton'); btn.style.display = 'block'; btn.classList.add('animate');
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
@@ -426,7 +443,7 @@ requestAnimationFrame(gameLoop);
           gameRunning = false;
           restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-      document.getElementById('desktopShareButton').style.display = 'block';
+      const btn = document.getElementById('desktopShareButton'); btn.style.display = 'block'; btn.classList.add('animate');
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         }
@@ -669,7 +686,7 @@ if (score >= 110) {
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-      document.getElementById('desktopShareButton').style.display = 'block';
+      const btn = document.getElementById('desktopShareButton'); btn.style.display = 'block'; btn.classList.add('animate');
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
