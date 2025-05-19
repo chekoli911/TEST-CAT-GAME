@@ -903,26 +903,15 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
 </script>
 
 
+
 <script>
 document.getElementById("shareButton").addEventListener("click", () => {
   const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить рекорд 👉 https://chekoli911.github.io/cat-game/`;
-
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
-    window.open(telegramUrl, "_blank");
-  } else {
-    const telegramAppUrl = `tg://msg_url?text=${encodeURIComponent(shareText)}`;
-    window.location.href = telegramAppUrl;
-
-    setTimeout(() => {
-      const fallbackUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
-      window.open(fallbackUrl, "_blank");
-    }, 800);
-  }
+  const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
+  window.open(telegramUrl, '_blank');
 });
 </script>
+
 </body>
 </html>
 
