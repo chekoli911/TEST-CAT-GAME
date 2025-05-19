@@ -251,6 +251,16 @@ function loadHighscores() {
 
 </script>
 
+
+<style>
+@media (max-width: 600px) {
+  #shareButton {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+    bottom: 45px !important;
+  }
+}
+</style>
 </head>
 <body>
   <canvas id="game"></canvas>
@@ -258,7 +268,7 @@ function loadHighscores() {
     <div id="stick"></div>
   </div>
   <button id="restartButton">Сыграть ещё</button>
-<button id="shareButton" style="display: none; position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); padding: 6px 16px; font-size: 13px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+<button id="shareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 10px 22px; font-size: 16px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
   Поделиться в Telegram
 </button>
 
