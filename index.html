@@ -905,7 +905,7 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
 
 <script>
 document.getElementById("shareButton").addEventListener("click", () => {
-  const shareText = `👈 Мой рекорд в Cat Game: ${score} очков! Попробуй побить`;
+  const shareText = ` 👈 Мой рекорд в Cat Game: ${score} очков! Попробуй побить`;
   const telegramUrl = `https://t.me/share/url?url=https://chekoli911.github.io/cat-game/&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
 });
