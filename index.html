@@ -258,7 +258,7 @@ function loadHighscores() {
     <div id="stick"></div>
   </div>
   <button id="restartButton">Сыграть ещё</button>
-<button id="shareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+<button id="shareButton" style="display: none; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); padding: 12px 24px; font-size: 18px; background: #34aadf; color: white; border: none; border-radius: 8px; z-index: 20;">
   Поделиться в Telegram
 </button>
 
@@ -903,30 +903,13 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
 </script>
 
 
-
-
 <script>
 document.getElementById("shareButton").addEventListener("click", () => {
-  const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить рекорд 👉 https://chekoli911.github.io/cat-game/`;
-
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
-    window.open(telegramUrl, "_blank");
-  } else {
-    const telegramAppUrl = `tg://msg_url?text=${encodeURIComponent(shareText)}`;
-    window.location.href = telegramAppUrl;
-
-    setTimeout(() => {
-      const fallbackUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
-      window.open(fallbackUrl, "_blank");
-    }, 800);
-  }
+  const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить 👉 https://chekoli911.github.io/cat-game/`;
+  const telegramUrl = `https://t.me/share/url?url=https://chekoli911.github.io/cat-game/&text=${encodeURIComponent(shareText)}`;
+  window.open(telegramUrl, '_blank');
 });
 </script>
 </body>
 </html>
 
-</body>
-</html>
