@@ -268,8 +268,8 @@ function loadHighscores() {
 <body>
   <canvas id="game"></canvas>
 <div id="desktopShareWrapper">
-  <button id="desktopShareButton" style="display: none; position: absolute; bottom: 80px; right: 20px; padding: 10px 20px; font-size: 14px; background: #0088cc; color: white; border: 1px solid #007ab8; border-radius: 8px; z-index: 20;">
-    Поделиться в Telegram (ПК)
+  <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+    Поделиться в Telegram
   </button>
 </div>
 
@@ -940,9 +940,9 @@ document.getElementById("shareButton").addEventListener("click", () => {
 
 <script>
 document.getElementById("desktopShareButton").addEventListener("click", () => {
-  const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить рекорд 👉 https://chekoli911.github.io/cat-game/`;
-  const telegramAppUrl = `tg://msg_url?text=${encodeURIComponent(shareText)}`;
-  window.location.href = telegramAppUrl;
+   const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить 👉 https://chekoli911.github.io/cat-game/`;
+  const telegramUrl = `https://t.me/share/url?url=https://chekoli911.github.io/cat-game/&text=${encodeURIComponent(shareText)}`;
+  window.open(telegramUrl, '_blank');
 
   setTimeout(() => {
     const fallbackUrl = `https://t.me/share/url?text=${encodeURIComponent(shareText)}`;
