@@ -251,17 +251,6 @@ function loadHighscores() {
 
 </script>
 
-
-<style>
-@media (max-width: 768px) {
-  #shareButton {
-    padding: 6px 16px !important;
-    font-size: 13px !important;
-    bottom: 50px !important;
-  }
-}
-</style>
-
 </head>
 <body>
   <canvas id="game"></canvas>
@@ -269,7 +258,7 @@ function loadHighscores() {
     <div id="stick"></div>
   </div>
   <button id="restartButton">Сыграть ещё</button>
-<button id="shareButton" style="display: none; position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); padding: 10px 20px; font-size: 16px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+<button id="shareButton" style="display: none; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); padding: 12px 24px; font-size: 18px; background: #34aadf; color: white; border: none; border-radius: 8px; z-index: 20;">
   Поделиться в Telegram
 </button>
 
@@ -914,12 +903,23 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
 </script>
 
 
-
 <script>
 document.getElementById("shareButton").addEventListener("click", () => {
   const shareText = `Мой рекорд в Cat Game: ${score} очков! Попробуй побить рекорд 👉 https://chekoli911.github.io/cat-game/`;
   const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
+  if (isMobile) {
+    const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
+    window.open(telegramUrl, "_blank");
+  } else {
+    const telegramAppUrl = `tg://msg_url?text=${encodeURIComponent(shareText)}`;
+    window.location.href = telegramAppUrl;
+
+    setTimeout(() => {
+      const fallbackUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
+      window.open(fallbackUrl, "_blank");
+    }, 800);
+  }
 });
 </script>
 </body>
