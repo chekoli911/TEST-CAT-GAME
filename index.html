@@ -376,7 +376,7 @@ let mouseAppearTime = 0;
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 8 === 0) {
+if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
@@ -640,7 +640,7 @@ if (score >= 110) {
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 8 === 0) {
+if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
