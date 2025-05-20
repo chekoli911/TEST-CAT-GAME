@@ -380,8 +380,10 @@ let mouseAppearTime = 0;
     let lastHitTime = 0;
     let lastFoodTime = Date.now();
     let timerInterval;
+let gameStarted = false;
 
     function resetGame() {
+      gameStarted = true;
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -418,6 +420,7 @@ requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
+      if (!gameStarted) return;
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         if (timeLeft > 0) {
@@ -509,6 +512,7 @@ if (score >= 110) {
     }
 
     function update() {
+      if (!gameStarted) return;
       if (currentLevel > 1) {
       // Злой кот двигается к игроку
       const dzX = catX - zloiX;
