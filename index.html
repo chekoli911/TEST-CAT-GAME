@@ -275,9 +275,6 @@ function loadHighscores() {
 
 <canvas id="game"></canvas>
 
-<div id="foodEatenDisplay" style="position:absolute; top:30px; right:10px; background:rgba(0,0,0,0.2); color:white; padding:6px 10px; font-size:14px; border-radius:6px; z-index:10;">
-  Корм съеден: <span id="foodEaten">0</span>
-</div>
 
 
 
@@ -405,10 +402,7 @@ let timerStarted = false;
 let timerInterval;
 
 let foodEaten = parseInt(localStorage.getItem("catgame-food-eaten") || "0");
-document.getElementById("foodEaten").textContent = foodEaten;
-
-
-    function resetGame() {
+function resetGame() {
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -532,6 +526,7 @@ if (score >= 110) {
       ctx.fillText(`Очки: ${score}`, 20, 30);
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
+      ctx.fillText(`Корм съеден: ${foodEaten}`, 20, 150);
       ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
     }
 
@@ -633,7 +628,6 @@ if (score >= 110) {
         crunchSound.play();
         foodEaten++;
         localStorage.setItem("catgame-food-eaten", foodEaten);
-        document.getElementById("foodEaten").textContent = foodEaten;
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
