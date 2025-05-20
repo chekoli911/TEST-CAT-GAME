@@ -740,6 +740,10 @@ requestAnimationFrame(gameLoop);
     let center = { x: joystick.offsetLeft + 60, y: joystick.offsetTop + 60 };
 
     joystick.addEventListener('touchmove', (e) => {
+  if (currentLevel === 1 && !timerStarted) {
+    startTimer();
+    timerStarted = true;
+  }
       const touch = e.touches[0];
       const dx = touch.clientX - center.x;
       const dy = touch.clientY - center.y;
