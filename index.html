@@ -266,6 +266,11 @@ function loadHighscores() {
 
 </head>
 <body>
+  
+  <div id="mainMenu" style="background: url('main_start.png') no-repeat center center; background-size: cover; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: flex-end; z-index: 100;">
+    <button id="playButton" style="font-size: 32px; margin-bottom: 100px; padding: 16px 48px; background-color: #FFD700; color: #222; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">Играть</button>
+  </div>
+
   <canvas id="game"></canvas>
 <div id="desktopShareWrapper">
   <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
@@ -948,6 +953,14 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     const fallbackUrl = `https://t.me/share/url?text=${encodeURIComponent(shareText)}`;
     window.open(fallbackUrl, "_blank");
   }, 800);
+});
+</script>
+
+
+<script>
+document.getElementById("playButton").addEventListener("click", () => {
+  document.getElementById("mainMenu").style.display = "none";
+  resetGame();
 });
 </script>
 
