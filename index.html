@@ -276,8 +276,6 @@ function loadHighscores() {
 <canvas id="game"></canvas>
 
 
-
-
 <div id="pauseOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); color:white; font-size:48px; text-align:center; z-index:200;">
   <div style="margin-top:180px;">ПАУЗА</div>
   <button id="resumeButton" style="margin-top:30px; padding:12px 28px; font-size:24px; background:rgba(255,255,255,0.2); color:white; border:none; border-radius:8px; cursor:pointer;">
@@ -285,7 +283,7 @@ function loadHighscores() {
   </button>
 </div>
 
-<button id="pauseButton" style="position:absolute; top: 180px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
+<button id="pauseButton" style="position:absolute; top:135px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
   Отдохнуть
 </button>
 
@@ -318,12 +316,6 @@ function loadHighscores() {
 const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-  canvas.width = window.innerWidth * 0.9;
-  canvas.height = window.innerHeight * 0.9;
-}
-
 
     const crunchSound = document.getElementById('crunchSound');
 const hitSound = document.getElementById('hitSound');
@@ -395,7 +387,6 @@ let mouseAppearTime = 0;
 
     let velocity = { x: 0, y: 0 };
     let foodX, foodY;
-let lastFrameTime = 0;
     let score = 0;
     let timeLeft = 45;
     let gameRunning = true;
@@ -408,9 +399,7 @@ let timerStarted = false;
 
 let timerInterval;
 
-let foodEaten = parseInt(localStorage.getItem("catgame-food-eaten") || "0");
-let lastFoodStoreTime = Date.now();
-function resetGame() {
+    function resetGame() {
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -438,14 +427,9 @@ function resetGame() {
       }
       }
       // Обновляем кадр анимации кота
-
-
-
-const nowTime = Date.now();
-if (!lastFrameTime) lastFrameTime = nowTime;
-if (nowTime - lastFrameTime > 80) {  // 80мс между кадрами анимации
+catAnimationTimer++;
+if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
-  lastFrameTime = nowTime;
 }
 
 requestAnimationFrame(gameLoop);
@@ -539,7 +523,6 @@ if (score >= 110) {
       ctx.fillText(`Очки: ${score}`, 20, 30);
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
-      ctx.fillText(`Корм съеден: ${foodEaten}`, 20, 150);
       ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
     }
 
@@ -550,8 +533,12 @@ if (score >= 110) {
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
       if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * 0.7;
-        zloiY += (dzY / distZloi) * 0.7;
+        zloiX += (dzX / distZloi) * (1.5 * SCALE);
+        zloiY += (dzY / distZloi) * (1.5 * SCALE);
+      }
+            if (distZloi > 1) {
+        zloiX += (dzX / distZloi) * (0.35 * SCALE);
+        zloiY += (dzY / distZloi) * (0.35 * SCALE);
       }
     }
 
@@ -633,12 +620,8 @@ if (score >= 110) {
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
-crunchSound.play();
-        foodEaten++;
-        if (Date.now() - lastFoodStoreTime > 2000) {
-          localStorage.setItem("catgame-food-eaten", foodEaten);
-          lastFoodStoreTime = Date.now();
-        }
+        lastFoodTime = Date.now();
+        crunchSound.play();
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
@@ -712,21 +695,16 @@ crunchSound.play();
       }
       }
       // Обновляем кадр анимации кота
-
-
-
-const nowTime = Date.now();
-if (!lastFrameTime) lastFrameTime = nowTime;
-if (nowTime - lastFrameTime > 80) {  // 80мс между кадрами анимации
+catAnimationTimer++;
+if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
-  lastFrameTime = nowTime;
 }
 
 requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
-      window.location.href = 'https://chekoli911.github.io/TEST-CAT-GAME/';
+      window.location.href = 'https://chekoli911.github.io/cat-game/';
     });
 
     const joystick = document.getElementById('joystick');
@@ -759,12 +737,6 @@ requestAnimationFrame(gameLoop);
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
-if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-  canvas.width = window.innerWidth * 0.9;
-  canvas.height = window.innerHeight * 0.9;
-}
-
       center = { x: joystick.offsetLeft + 60, y: joystick.offsetTop + 60 };
     });
 
