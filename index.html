@@ -319,6 +319,12 @@ const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+  canvas.width = window.innerWidth * 0.9;
+  canvas.height = window.innerHeight * 0.9;
+}
+
+
     const crunchSound = document.getElementById('crunchSound');
 const hitSound = document.getElementById('hitSound');
 const mouseSound = document.getElementById('mouseSound');
@@ -389,6 +395,7 @@ let mouseAppearTime = 0;
 
     let velocity = { x: 0, y: 0 };
     let foodX, foodY;
+let lastFrameTime = 0;
     let score = 0;
     let timeLeft = 45;
     let gameRunning = true;
@@ -402,6 +409,7 @@ let timerStarted = false;
 let timerInterval;
 
 let foodEaten = parseInt(localStorage.getItem("catgame-food-eaten") || "0");
+let lastFoodStoreTime = Date.now();
 function resetGame() {
       loadHighscores();
       catX = 100;
@@ -430,9 +438,14 @@ function resetGame() {
       }
       }
       // Обновляем кадр анимации кота
-catAnimationTimer++;
-if (catAnimationTimer % 12 === 0) {
+
+
+
+const nowTime = Date.now();
+if (!lastFrameTime) lastFrameTime = nowTime;
+if (nowTime - lastFrameTime > 80) {  // 80мс между кадрами анимации
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
+  lastFrameTime = nowTime;
 }
 
 requestAnimationFrame(gameLoop);
@@ -526,7 +539,7 @@ if (score >= 110) {
       ctx.fillText(`Очки: ${score}`, 20, 30);
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
-      ctx.fillText(`Всего наел: ${foodEaten}`, 20, 150);
+      ctx.fillText(`Корм съеден: ${foodEaten}`, 20, 150);
       ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
     }
 
@@ -622,7 +635,10 @@ if (score >= 110) {
         lastFoodTime = Date.now();
 crunchSound.play();
         foodEaten++;
-        localStorage.setItem("catgame-food-eaten", foodEaten);
+        if (Date.now() - lastFoodStoreTime > 2000) {
+          localStorage.setItem("catgame-food-eaten", foodEaten);
+          lastFoodStoreTime = Date.now();
+        }
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
@@ -696,16 +712,21 @@ crunchSound.play();
       }
       }
       // Обновляем кадр анимации кота
-catAnimationTimer++;
-if (catAnimationTimer % 12 === 0) {
+
+
+
+const nowTime = Date.now();
+if (!lastFrameTime) lastFrameTime = nowTime;
+if (nowTime - lastFrameTime > 80) {  // 80мс между кадрами анимации
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
+  lastFrameTime = nowTime;
 }
 
 requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
-      window.location.href = 'https://chekoli911.github.io/TEST-CAT-GAME/';
+      window.location.href = 'https://chekoli911.github.io/cat-game/';
     });
 
     const joystick = document.getElementById('joystick');
@@ -738,6 +759,12 @@ requestAnimationFrame(gameLoop);
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+  canvas.width = window.innerWidth * 0.9;
+  canvas.height = window.innerHeight * 0.9;
+}
+
       center = { x: joystick.offsetLeft + 60, y: joystick.offsetTop + 60 };
     });
 
