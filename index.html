@@ -1031,11 +1031,13 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
   const resumeBtn = document.getElementById("resumeButton");
 
   pauseBtn.addEventListener("click", () => {
+  if (typeof bgMusic !== "undefined") bgMusic.pause();
     isPaused = true;
     pauseOverlay.style.display = "block";
   });
 
   resumeBtn.addEventListener("click", () => {
+  if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
     isPaused = false;
     pauseOverlay.style.display = "none";
   });
