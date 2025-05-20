@@ -731,7 +731,7 @@ requestAnimationFrame(gameLoop);
     
 
     cat.onload = bg.onload = food.onload = () => {
-      resetGame();
+      console.log('Графика загружена. Ожидание старта игры.');
     };
   
 window.addEventListener('keydown', (e) => {
