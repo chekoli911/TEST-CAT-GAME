@@ -275,9 +275,11 @@ function loadHighscores() {
 
 <canvas id="game"></canvas>
 
-<div id="totalFeedCounter" style="position:absolute; top: 205px; left:20px; background:rgba(255,255,255,0.2); color:white; padding:6px 12px; font-size:16px; border-radius:6px; z-index:150;">
-  Корм: <span id="foodSession">0</span> / <span id="foodTotal">0</span>
+
+<div id="totalFeedCounter" style="position:absolute; top:200px; left:20px; background:rgba(255,255,255,0.2); color:white; padding:6px 12px; font-size:16px; border-radius:6px; z-index:150;">
+  Корм съеден: <span id="foodTotal">0</span>
 </div>
+
 
 
 
@@ -288,7 +290,7 @@ function loadHighscores() {
   </button>
 </div>
 
-<button id="pauseButton" style="position:absolute; top: 160px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
+<button id="pauseButton" style="position:absolute; top:135px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
   Отдохнуть
 </button>
 
@@ -401,8 +403,12 @@ let mouseAppearTime = 0;
     let lastFoodTime = Date.now();
     
 let timerStarted = false;
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("foodTotal").textContent = foodEatenTotal;
+});
 
 let timerInterval;
+let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0");
 
     function resetGame() {
       loadHighscores();
@@ -627,6 +633,9 @@ if (score >= 110) {
         lastFoodTime = Date.now();
         lastFoodTime = Date.now();
         crunchSound.play();
+                foodEatenTotal++;
+                document.getElementById("foodTotal").textContent = foodEatenTotal;
+        localStorage.setItem("catgame-food-total", foodEatenTotal);
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
@@ -709,7 +718,7 @@ requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
-      window.location.href = 'https://chekoli911.github.io/cat-game/';
+      window.location.href = 'https://chekoli911.github.io/TEST-CAT-GAME/';
     });
 
     const joystick = document.getElementById('joystick');
