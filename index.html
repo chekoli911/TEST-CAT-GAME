@@ -622,6 +622,11 @@ if (score >= 110) {
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
+        if (score % 10 === 0) {
+          currentLevel++;
+          timeLeft = 45;
+          startTimer();
+        }
       }
     }
 
