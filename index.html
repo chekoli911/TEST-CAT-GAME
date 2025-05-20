@@ -416,7 +416,6 @@ if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
@@ -686,7 +685,6 @@ if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
