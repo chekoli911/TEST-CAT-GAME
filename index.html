@@ -272,7 +272,6 @@ function loadHighscores() {
   </div>
 
   <canvas id="game"></canvas>
-<button id="pauseButton" style="position:absolute; top:10px; left:10px; z-index:30; font-size:18px; padding:8px 18px;">⏸ Пауза</button>
 
 <button id="pauseButton" style="position:absolute; top:10px; left:10px; z-index:30; font-size:18px; padding:8px 18px;">⏸ Пауза</button>
 
@@ -385,7 +384,6 @@ let mouseAppearTime = 0;
     let lastFoodTime = Date.now();
     let timerInterval;
 let paused = false;
-let paused = false;
 let gameStarted = false;
 
     function resetGame() {
@@ -457,7 +455,7 @@ let bgDrawWidth, bgDrawHeight;
 if (canvasAspect > bgAspect) {
   bgDrawWidth = canvas.width;
   bgDrawHeight = canvas.width / bgAspect;
-} else if (!paused && timeLeft <= 0) {
+} else {
   bgDrawHeight = canvas.height;
   bgDrawWidth = canvas.height * bgAspect;
 }
@@ -493,7 +491,7 @@ if (score >= 110) {
 
       if (Date.now() - lastHitTime < 3000 && Math.floor(Date.now() / 200) % 2 === 0) {
         // не рисуем кота (мигание)
-      } else if (!paused && timeLeft <= 0) {
+      } else {
         ctx.drawImage(
   catSprite,
   catFrameIndex * catFrameWidth, 0,
@@ -518,14 +516,6 @@ if (score >= 110) {
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
       ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
-
-      if (paused) {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'white';
-        ctx.font = '48px sans-serif';
-        ctx.fillText('Пауза', canvas.width / 2 - 60, canvas.height / 2);
-      }
 
       if (paused) {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -640,11 +630,6 @@ if (score >= 110) {
     }
 
     function gameLoop() {
-      if (paused) {
-        draw();
-        requestAnimationFrame(gameLoop);
-        return;
-      }
       if (!gameRunning || paused) return;
       update();
       if (score >= 110 && currentLevel < 12) {
@@ -1004,12 +989,6 @@ document.getElementById("pauseButton").addEventListener("click", () => {
   if (!paused) {
     gameLoop(); // продолжить игру
   }
-});
-</script>
-
-<script>
-document.getElementById("pauseButton").addEventListener("click", () => {
-  paused = !paused;
 });
 </script>
 </body>
