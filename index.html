@@ -296,9 +296,7 @@ function loadHighscores() {
   <audio id="bgMusic" src="terra-short-background-music-336035.mp3" loop></audio>
 
   <script>
-    let assetsLoaded = false;
-
-const canvas = document.getElementById('game');
+    const canvas = document.getElementById('game');
     const SCALE = window.innerWidth < 600 ? 0.7 : 1;
 const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -963,10 +961,6 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 
 <script>
 document.getElementById("playButton").addEventListener("click", () => {
-  if (!assetsLoaded) {
-    alert("Пожалуйста, подождите, пока загрузятся изображения...");
-    return;
-  }
   document.getElementById("mainMenu").style.display = "none";
   resetGame();
 });
