@@ -9,27 +9,7 @@
 @media (max-width: 600px) {
   #scoreBoard {
     font-size: 10px !important;
-  
-  // Злой кот атакует
-  if (currentLevel > 1) {
-    const now = Date.now();
-    const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
-    if (playerToZloi < 55 && now - lastHitTime > 4000) {
-      lastHitTime = now;
-      hitSound.play();
-      lives--;
-      if (lives <= 0) {
-        gameRunning = false;
-        restartButton.style.display = 'block';
-        document.getElementById('shareButton').style.display = 'block';
-        document.getElementById('desktopShareButton').style.display = 'block';
-        document.getElementById('nameEntry').style.display = 'block';
-        document.getElementById('showTop50Button').style.display = 'block';
-      }
-    }
   }
-
-}
   #highscores {
     font-size: 10px !important;
   }
@@ -286,16 +266,23 @@ function loadHighscores() {
 
 </head>
 <body>
+  
+  <div id="mainMenu" style="background: url('main_start.png') center center / contain no-repeat; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: flex-end; z-index: 100;">
+    <button id="playButton" style="font-size: 32px; margin-bottom: 100px; padding: 16px 48px; background-color: #FFD700; color: #222; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">Играть</button>
+  </div>
+
   <canvas id="game"></canvas>
+
 <button id="pauseButton" style="position:absolute; top:10px; left:10px; z-index:30; font-size:18px; padding:8px 18px;">⏸ Пауза</button>
+
 <div id="desktopShareWrapper">
-  <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="desktopShareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
 
 <div id="mobileShareWrapper">
-  <button id="shareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="shareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
@@ -397,9 +384,10 @@ let mouseAppearTime = 0;
     let lastFoodTime = Date.now();
     let timerInterval;
 let paused = false;
-let firstMoveMade = false;
+let gameStarted = false;
 
     function resetGame() {
+      gameStarted = true;
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -410,7 +398,21 @@ let firstMoveMade = false;
       foodY = Math.random() * (canvas.height - 50);
       restartButton.style.display = 'none';
       startTimer();
-      
+      const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
+      const now = Date.now();
+      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+        lastHitTime = now;
+        hitSound.play();
+        lives--;
+        if (lives <= 0) {
+        gameRunning = false;
+        restartButton.style.display = 'block';
+      document.getElementById('shareButton').style.display = 'block';
+      document.getElementById('desktopShareButton').style.display = 'block';
+          document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showTop50Button').style.display = 'block';
+        return;
+      }
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
@@ -418,19 +420,10 @@ if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
-      if (currentLevel === 1 && !firstMoveMade) {
-        const checkMoveInterval = setInterval(() => {
-          if (firstMoveMade) {
-            clearInterval(checkMoveInterval);
-            startTimer();
-          }
-        }, 100);
-        return;
-      }
+      if (!gameStarted) return;
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         if (!paused && timeLeft > 0) {
@@ -439,6 +432,10 @@ requestAnimationFrame(gameLoop);
           clearInterval(timerInterval);
           gameRunning = false;
           restartButton.style.display = 'block';
+          document.getElementById('shareButton').style.display = 'block';
+          document.getElementById('desktopShareButton').style.display = 'block';
+          document.getElementById('nameEntry').style.display = 'block';
+          document.getElementById('showTop50Button').style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
@@ -530,12 +527,16 @@ if (score >= 110) {
     }
 
     function update() {
+      if (!gameStarted) return;
       if (currentLevel > 1) {
       // Злой кот двигается к игроку
       const dzX = catX - zloiX;
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
-      
+      if (distZloi > 1) {
+        zloiX += (dzX / distZloi) * (1.5 * SCALE);
+        zloiY += (dzY / distZloi) * (1.5 * SCALE);
+      }
             if (distZloi > 1) {
         zloiX += (dzX / distZloi) * (0.35 * SCALE);
         zloiY += (dzY / distZloi) * (0.35 * SCALE);
@@ -604,9 +605,6 @@ if (score >= 110) {
 
     // Обновление позиции кота с ограничениями
 
-      if (currentLevel === 1 && !firstMoveMade && (velocity.x !== 0 || velocity.y !== 0)) {
-        firstMoveMade = true;
-      }
       catX = Math.max(0, Math.min(canvas.width - 110 * SCALE, catX + velocity.x));
       catY = Math.max(0, Math.min(canvas.height - 110 * SCALE, catY + velocity.y));
 
@@ -628,50 +626,82 @@ if (score >= 110) {
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
-        if (score % 10 === 0) {
-          currentLevel++;
-          timeLeft = 45;
-          firstMoveMade = false;
-          if (currentLevel > 1) {
-            zloiX = Math.random() * (canvas.width - 110);
-            zloiY = Math.random() * (canvas.height - 110);
-          }
-          startTimer();
-        }
       }
     }
 
     function gameLoop() {
-  if (!gameRunning) return;
+      if (!gameRunning || paused) return;
+      update();
+      if (score >= 110 && currentLevel < 12) {
+        currentLevel = 12;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 100 && currentLevel < 11) {
+        currentLevel = 11;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 90 && currentLevel < 10) {
+        currentLevel = 10;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 80 && currentLevel < 9) {
+        currentLevel = 9;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 70 && currentLevel < 8) {
+        currentLevel = 8;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 60 && currentLevel < 7) {
+        currentLevel = 7;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 50 && currentLevel < 6) {
+        currentLevel = 6;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 40 && currentLevel < 5) {
+        currentLevel = 5;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 30 && currentLevel < 4) {
+        currentLevel = 4;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 20 && currentLevel < 3) {
+        currentLevel = 3;
+        timeLeft = 45;
+        startTimer();
+      } else if (score >= 10 && currentLevel < 2) {
+        currentLevel = 2;
+        timeLeft = 45;
+        startTimer();
+      }
 
-  if (!paused) {
-    update();
-    draw();
-  } else {
-    draw(); // Показать экран паузы
-  }
-
-  requestAnimationFrame(gameLoop);
-  // Проверка столкновения со злым котом
-  if (currentLevel > 1) {
-    const now = Date.now();
-    const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
-    if (playerToZloi < 55 && now - lastHitTime > 4000) {
-      lastHitTime = now;
-      hitSound.play();
-      lives--;
-      if (lives <= 0) {
+      draw();
+      const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
+      const now = Date.now();
+      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+        lastHitTime = now;
+        hitSound.play();
+        lives--;
+        if (lives <= 0) {
         gameRunning = false;
         restartButton.style.display = 'block';
-        document.getElementById('shareButton').style.display = 'block';
-        document.getElementById('desktopShareButton').style.display = 'block';
-        document.getElementById('nameEntry').style.display = 'block';
-        document.getElementById('showTop50Button').style.display = 'block';
+      document.getElementById('shareButton').style.display = 'block';
+      document.getElementById('desktopShareButton').style.display = 'block';
+          document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showTop50Button').style.display = 'block';
+        return;
       }
-    }
-  }
-
+      }
+      // Обновляем кадр анимации кота
+catAnimationTimer++;
+if (catAnimationTimer % 16 === 0) {
+  catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
+
+    }
 
     restartButton.addEventListener('click', () => {
       window.location.href = 'https://chekoli911.github.io/cat-game/';
@@ -715,7 +745,7 @@ if (score >= 110) {
     
 
     cat.onload = bg.onload = food.onload = () => {
-      resetGame();
+      console.log('Графика загружена. Ожидание старта игры.');
     };
   
 window.addEventListener('keydown', (e) => {
@@ -787,7 +817,7 @@ function loadHighscores() {
 </script>
 
 
-  <div id="nameEntry" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
+  <div id="nameEntry" style="display:none;" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
     <label>Введите имя: <input id="playerName" type="text" / oninput="localStorage.setItem(\'catgame-name\', this.value)" value=""+(localStorage.getItem(\'catgame-name\')||"")></label>
     <button onclick="saveHighscore()">Сохранить</button>
   </div>
@@ -884,7 +914,7 @@ canvas {
   <ul id="top50List" style="padding-left:20px; font-size:16px;"></ul>
   <button onclick="document.getElementById('top50Container').style.display='none'">Закрыть</button>
 </div>
-<button id="showTop50Button" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
+<button id="showTop50Button" style="display:none;" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
 
 
 <script>
@@ -944,9 +974,21 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 });
 </script>
 
+
+<script>
+document.getElementById("playButton").addEventListener("click", () => {
+  document.getElementById("mainMenu").style.display = "none";
+  resetGame();
+});
+</script>
+
+
 <script>
 document.getElementById("pauseButton").addEventListener("click", () => {
   paused = !paused;
+  if (!paused) {
+    gameLoop(); // продолжить игру
+  }
 });
 </script>
 </body>
