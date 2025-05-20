@@ -1003,15 +1003,18 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
   // Устанавливаем фон под размер экрана
   if (window.innerWidth < 600) {
     mainMenu.style.backgroundImage = "url('main_start_mobile.png')";
+  document.getElementById("totalFeedCounter").style.display = "none";
   document.getElementById("pauseButton").style.display = "none";
   } else {
     mainMenu.style.backgroundImage = "url('main_start.png')";
+  document.getElementById("totalFeedCounter").style.display = "none";
   document.getElementById("pauseButton").style.display = "none";
   }
 
   // По нажатию — скрываем меню и запускаем игру
   startButton.addEventListener("click", () => {
     mainMenu.style.display = "none";
+    document.getElementById("totalFeedCounter").style.display = "block";
     document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
