@@ -381,7 +381,10 @@ let mouseAppearTime = 0;
     let currentLevel = 1;
     let lastHitTime = 0;
     let lastFoodTime = Date.now();
-    let timerInterval;
+    
+let timerStarted = false;
+
+let timerInterval;
 
     function resetGame() {
       loadHighscores();
@@ -393,7 +396,7 @@ let mouseAppearTime = 0;
       foodX = Math.random() * (canvas.width - 50);
       foodY = Math.random() * (canvas.height - 50);
       restartButton.style.display = 'none';
-      startTimer();
+      if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
       if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
@@ -618,47 +621,47 @@ if (score >= 110) {
       if (score >= 110 && currentLevel < 12) {
         currentLevel = 12;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 100 && currentLevel < 11) {
         currentLevel = 11;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 90 && currentLevel < 10) {
         currentLevel = 10;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 80 && currentLevel < 9) {
         currentLevel = 9;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 70 && currentLevel < 8) {
         currentLevel = 8;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 60 && currentLevel < 7) {
         currentLevel = 7;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 50 && currentLevel < 6) {
         currentLevel = 6;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 40 && currentLevel < 5) {
         currentLevel = 5;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 30 && currentLevel < 4) {
         currentLevel = 4;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 20 && currentLevel < 3) {
         currentLevel = 3;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       } else if (score >= 10 && currentLevel < 2) {
         currentLevel = 2;
         timeLeft = 45;
-        startTimer();
+        if (currentLevel !== 1) startTimer();
       }
 
       draw();
@@ -729,11 +732,13 @@ requestAnimationFrame(gameLoop);
     
 
     cat.onload = bg.onload = food.onload = () => {
-      resetGame();
-    };
-  
+
 window.addEventListener('keydown', (e) => {
   const speed = 5;
+  if (currentLevel === 1 && !timerStarted) {
+    startTimer();
+    timerStarted = true;
+  }
   switch (e.code) {
     case 'KeyW': case 'ArrowUp': velocity.y = -speed; break;
     case 'KeyS': case 'ArrowDown': velocity.y = speed; break;
@@ -741,6 +746,11 @@ window.addEventListener('keydown', (e) => {
     case 'KeyD': case 'ArrowRight': velocity.x = speed; break;
   }
 });
+
+      resetGame();
+    };
+  
+
 
 window.addEventListener('keyup', (e) => {
   switch (e.code) {
