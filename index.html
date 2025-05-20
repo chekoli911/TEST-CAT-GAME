@@ -625,6 +625,11 @@ if (score >= 110) {
         if (score % 10 === 0) {
           currentLevel++;
           timeLeft = 45;
+          firstMoveMade = false;
+          if (currentLevel > 1) {
+            zloiX = Math.random() * (canvas.width - 110);
+            zloiY = Math.random() * (canvas.height - 110);
+          }
           startTimer();
         }
       }
