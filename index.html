@@ -275,9 +275,14 @@ function loadHighscores() {
 
 <canvas id="game"></canvas>
 
-<div id="pauseOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); color:white; font-size:48px; text-align:center; padding-top:200px; z-index:200;">
-  ПАУЗА
+
+<div id="pauseOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); color:white; font-size:48px; text-align:center; z-index:200;">
+  <div style="margin-top:180px;">ПАУЗА</div>
+  <button id="resumeButton" style="margin-top:30px; padding:12px 28px; font-size:24px; background:rgba(255,255,255,0.2); color:white; border:none; border-radius:8px; cursor:pointer;">
+    Продолжить
+  </button>
 </div>
+
 <button id="pauseButton" style="position:absolute; top:135px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
   Отдохнуть
 </button>
@@ -984,28 +989,39 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
   // Устанавливаем фон под размер экрана
   if (window.innerWidth < 600) {
     mainMenu.style.backgroundImage = "url('main_start_mobile.png')";
+  document.getElementById("pauseButton").style.display = "none";
   } else {
     mainMenu.style.backgroundImage = "url('main_start.png')";
+  document.getElementById("pauseButton").style.display = "none";
   }
 
   // По нажатию — скрываем меню и запускаем игру
   startButton.addEventListener("click", () => {
     mainMenu.style.display = "none";
+    document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
 </script>
 
 
+
 <script>
   let isPaused = false;
 
-  document.getElementById("pauseButton").addEventListener("click", () => {
-    isPaused = !isPaused;
-    const overlay = document.getElementById("pauseOverlay");
-    overlay.style.display = isPaused ? "block" : "none";
+  const pauseBtn = document.getElementById("pauseButton");
+  const pauseOverlay = document.getElementById("pauseOverlay");
+  const resumeBtn = document.getElementById("resumeButton");
+
+  pauseBtn.addEventListener("click", () => {
+    isPaused = true;
+    pauseOverlay.style.display = "block";
   });
 
-  // блокировка update и draw при паузе
+  resumeBtn.addEventListener("click", () => {
+    isPaused = false;
+    pauseOverlay.style.display = "none";
+  });
+
   const originalUpdate = update;
   const originalDraw = draw;
 
@@ -1017,6 +1033,7 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     if (!isPaused) originalDraw();
   };
 </script>
+
 
 </body>
 </html>
