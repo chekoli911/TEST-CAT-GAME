@@ -105,8 +105,94 @@ canvas {
   </style>
 
 <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js">
+function saveHighscore() {
+  const name = document.getElementById("playerName").value || "Безымянный";
+  const newRef = db.ref("highscores").push();
+  newRef.set({
+    name: name,
+    score: score,
+    time: Date.now()
+  });
+  document.getElementById("nameEntry").style.display = "none";
+  loadHighscores();
+}
 
 
+
+function loadHighscores() {
+  const list = document.getElementById("highscoreList");
+  list.innerHTML = ""; // очищаем старый список
+
+  db.ref("highscores")
+    .once("value")
+    .then(snapshot => {
+      const uniqueSet = new Set();
+      const scores = [];
+
+      snapshot.forEach(child => {
+        const entry = child.val();
+        const key = `${entry.name}-${entry.score}`;
+        if (!uniqueSet.has(key)) {
+          uniqueSet.add(key);
+          scores.push(entry);
+        }
+      });
+
+      scores.sort((a, b) => b.score - a.score);
+      scores.slice(0, 5).forEach(entry => {
+        const item = document.createElement("li");
+        item.textContent = `${entry.name}: ${entry.score}`;
+        list.appendChild(item);
+      });
+    });
+}
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
+function saveHighscore() {
+  const name = document.getElementById("playerName").value || "Безымянный";
+  const newRef = db.ref("highscores").push();
+  newRef.set({
+    name: name,
+    score: score,
+    time: Date.now()
+  });
+  document.getElementById("nameEntry").style.display = "none";
+  loadHighscores();
+}
+
+
+
+function loadHighscores() {
+  const list = document.getElementById("highscoreList");
+  list.innerHTML = ""; // очищаем старый список
+
+  db.ref("highscores")
+    .once("value")
+    .then(snapshot => {
+      const uniqueSet = new Set();
+      const scores = [];
+
+      snapshot.forEach(child => {
+        const entry = child.val();
+        const key = `${entry.name}-${entry.score}`;
+        if (!uniqueSet.has(key)) {
+          uniqueSet.add(key);
+          scores.push(entry);
+        }
+      });
+
+      scores.sort((a, b) => b.score - a.score);
+      scores.slice(0, 5).forEach(entry => {
+        const item = document.createElement("li");
+        item.textContent = `${entry.name}: ${entry.score}`;
+        list.appendChild(item);
+      });
+    });
+}
+
+</script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyARVNAMbY3NIDAsUdb4gTat5PKko0hOZxc",
@@ -121,14 +207,33 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-);
+function saveHighscore() {
+  const name = document.getElementById("playerName").value || "Безымянный";
+  const newRef = db.ref("highscores").push();
+  newRef.set({
+    name: name,
+    score: score,
+    time: Date.now()
+  });
   document.getElementById("nameEntry").style.display = "none";
   loadHighscores();
 }
 
 
 
--${entry.score}`;
+function loadHighscores() {
+  const list = document.getElementById("highscoreList");
+  list.innerHTML = ""; // очищаем старый список
+
+  db.ref("highscores")
+    .once("value")
+    .then(snapshot => {
+      const uniqueSet = new Set();
+      const scores = [];
+
+      snapshot.forEach(child => {
+        const entry = child.val();
+        const key = `${entry.name}-${entry.score}`;
         if (!uniqueSet.has(key)) {
           uniqueSet.add(key);
           scores.push(entry);
@@ -159,59 +264,16 @@ const db = firebase.database();
   #desktopShareWrapper { display: none !important; }
 }</style>
 
-
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyARVNAMbY3NIDAsUdb4gTat5PKko0hOZxc",
-  authDomain: "catgameonline-a5db1.firebaseapp.com",
-  databaseURL: "https://catgameonline-a5db1-default-rtdb.firebaseio.com",
-  projectId: "catgameonline-a5db1",
-  storageBucket: "catgameonline-a5db1.appspot.com",
-  messagingSenderId: "243768138039",
-  appId: "1:243768138039:web:07acd819a130233b1c62b2",
-  measurementId: "G-Y5EYTNQETP"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-function );
-  document.getElementById("nameEntry").style.display = "none";
-  loadHighscores();
-}
-
-function loadHighscores() {
-  const list = document.getElementById("highscoreList");
-  list.innerHTML = "";
-  db.ref("highscores")
-    .once("value")
-    .then(snapshot => {
-      const uniqueSet = new Set();
-      const scores = [];
-
-      snapshot.forEach(child => {
-        const entry = child.val();
-        const key = `${entry.name}-${entry.score}`;
-        if (!uniqueSet.has(key)) {
-          uniqueSet.add(key);
-          scores.push(entry);
-        }
-      });
-
-      scores.sort((a, b) => b.score - a.score);
-      scores.slice(0, 5).forEach(entry => {
-        const item = document.createElement("li");
-        item.textContent = `${entry.name}: ${entry.score}`;
-        list.appendChild(item);
-      });
-    });
-}
-</script>
-
 </head>
 <body>
-  <canvas id="game"></canvas>
+  
+<div id="mainMenu" style="position:fixed; top:0; left:0; width:100%; height:100%; background-size:cover; background-position:center; z-index:100;">
+  <button id="startGameButton" style="position:absolute; bottom:80px; left:50%; transform:translateX(-50%); padding:16px 36px; font-size:24px; background-color:#34aadf; color:white; border:none; border-radius:12px; cursor:pointer; z-index:101;">
+    Играть
+  </button>
+</div>
+
+<canvas id="game"></canvas>
 <div id="desktopShareWrapper">
   <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
@@ -542,7 +604,8 @@ if (score >= 110) {
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
-crunchSound.play();
+        lastFoodTime = Date.now();
+        crunchSound.play();
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
@@ -693,14 +756,33 @@ window.addEventListener('keyup', (e) => {
     loadHighscores();
 
 
-);
+function saveHighscore() {
+  const name = document.getElementById("playerName").value || "Безымянный";
+  const newRef = db.ref("highscores").push();
+  newRef.set({
+    name: name,
+    score: score,
+    time: Date.now()
+  });
   document.getElementById("nameEntry").style.display = "none";
   loadHighscores();
 }
 
 
 
--${entry.score}`;
+function loadHighscores() {
+  const list = document.getElementById("highscoreList");
+  list.innerHTML = ""; // очищаем старый список
+
+  db.ref("highscores")
+    .once("value")
+    .then(snapshot => {
+      const uniqueSet = new Set();
+      const scores = [];
+
+      snapshot.forEach(child => {
+        const entry = child.val();
+        const key = `${entry.name}-${entry.score}`;
         if (!uniqueSet.has(key)) {
           uniqueSet.add(key);
           scores.push(entry);
@@ -874,6 +956,25 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     window.open(fallbackUrl, "_blank");
   }, 800);
 });
+</script>
+
+
+<script>
+  const mainMenu = document.getElementById("mainMenu");
+  const startButton = document.getElementById("startGameButton");
+
+  // Устанавливаем фон под размер экрана
+  if (window.innerWidth < 600) {
+    mainMenu.style.backgroundImage = "url('main_start_mobile.png')";
+  } else {
+    mainMenu.style.backgroundImage = "url('main_start.png')";
+  }
+
+  // По нажатию — скрываем меню и запускаем игру
+  startButton.addEventListener("click", () => {
+    mainMenu.style.display = "none";
+    resetGame();
+  });
 </script>
 
 </body>
