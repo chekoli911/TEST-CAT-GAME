@@ -377,6 +377,7 @@ let mouseAppearTime = 0;
     let lastFoodTime = Date.now();
     let timerInterval;
 let paused = false;
+let firstMoveMade = false;
 
     function resetGame() {
       loadHighscores();
@@ -415,6 +416,15 @@ requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
+      if (currentLevel === 1 && !firstMoveMade) {
+        const checkMoveInterval = setInterval(() => {
+          if (firstMoveMade) {
+            clearInterval(checkMoveInterval);
+            startTimer();
+          }
+        }, 100);
+        return;
+      }
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         if (!paused && timeLeft > 0) {
@@ -591,6 +601,9 @@ if (score >= 110) {
 
     // Обновление позиции кота с ограничениями
 
+      if (currentLevel === 1 && !firstMoveMade && (velocity.x !== 0 || velocity.y !== 0)) {
+        firstMoveMade = true;
+      }
       catX = Math.max(0, Math.min(canvas.width - 110 * SCALE, catX + velocity.x));
       catY = Math.max(0, Math.min(canvas.height - 110 * SCALE, catY + velocity.y));
 
