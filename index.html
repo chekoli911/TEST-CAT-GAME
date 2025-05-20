@@ -652,6 +652,25 @@ if (score >= 110) {
   }
 
   requestAnimationFrame(gameLoop);
+  // Проверка столкновения со злым котом
+  if (currentLevel > 1) {
+    const now = Date.now();
+    const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
+    if (playerToZloi < 55 && now - lastHitTime > 4000) {
+      lastHitTime = now;
+      hitSound.play();
+      lives--;
+      if (lives <= 0) {
+        gameRunning = false;
+        restartButton.style.display = 'block';
+        document.getElementById('shareButton').style.display = 'block';
+        document.getElementById('desktopShareButton').style.display = 'block';
+        document.getElementById('nameEntry').style.display = 'block';
+        document.getElementById('showTop50Button').style.display = 'block';
+      }
+    }
+  }
+
 }
 
     restartButton.addEventListener('click', () => {
