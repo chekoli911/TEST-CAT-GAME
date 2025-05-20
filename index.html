@@ -431,7 +431,7 @@ function resetGame() {
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 56 === 0) {
+if (catAnimationTimer % 12 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
@@ -537,8 +537,8 @@ if (score >= 110) {
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
       if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * (0.7 * SCALE);
-        zloiY += (dzY / distZloi) * (0.7 * SCALE);
+        zloiX += (dzX / distZloi) * 0.7;
+        zloiY += (dzY / distZloi) * 0.7;
       }
     }
 
@@ -697,7 +697,7 @@ crunchSound.play();
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 16 === 0) {
+if (catAnimationTimer % 12 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
