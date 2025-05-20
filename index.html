@@ -266,23 +266,15 @@ function loadHighscores() {
 
 </head>
 <body>
-  
-  <div id="mainMenu" style="background: url('main_start.png') center center / contain no-repeat; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: flex-end; z-index: 100;">
-    <button id="playButton" style="font-size: 32px; margin-bottom: 100px; padding: 16px 48px; background-color: #FFD700; color: #222; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">Играть</button>
-  </div>
-
   <canvas id="game"></canvas>
-
-<button id="pauseButton" style="position:absolute; top:10px; left:10px; z-index:30; font-size:18px; padding:8px 18px;">⏸ Пауза</button>
-
 <div id="desktopShareWrapper">
-  <button id="desktopShareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
 
 <div id="mobileShareWrapper">
-  <button id="shareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="shareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
@@ -383,11 +375,8 @@ let mouseAppearTime = 0;
     let lastHitTime = 0;
     let lastFoodTime = Date.now();
     let timerInterval;
-let paused = false;
-let gameStarted = false;
 
     function resetGame() {
-      gameStarted = true;
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -420,22 +409,18 @@ if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
+requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
-      if (!gameStarted) return;
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
-        if (!paused && timeLeft > 0) {
+        if (timeLeft > 0) {
           timeLeft--;
-        } else if (!paused && timeLeft <= 0) {
+        } else {
           clearInterval(timerInterval);
           gameRunning = false;
           restartButton.style.display = 'block';
-          document.getElementById('shareButton').style.display = 'block';
-          document.getElementById('desktopShareButton').style.display = 'block';
-          document.getElementById('nameEntry').style.display = 'block';
-          document.getElementById('showTop50Button').style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
@@ -516,18 +501,9 @@ if (score >= 110) {
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
       ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
-
-      if (paused) {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'white';
-        ctx.font = '48px sans-serif';
-        ctx.fillText('Пауза', canvas.width / 2 - 60, canvas.height / 2);
-      }
     }
 
     function update() {
-      if (!gameStarted) return;
       if (currentLevel > 1) {
       // Злой кот двигается к игроку
       const dzX = catX - zloiX;
@@ -630,7 +606,7 @@ if (score >= 110) {
     }
 
     function gameLoop() {
-      if (!gameRunning || paused) return;
+      if (!gameRunning) return;
       update();
       if (score >= 110 && currentLevel < 12) {
         currentLevel = 12;
@@ -701,6 +677,7 @@ if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
+requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
@@ -745,7 +722,7 @@ if (catAnimationTimer % 16 === 0) {
     
 
     cat.onload = bg.onload = food.onload = () => {
-      console.log('Графика загружена. Ожидание старта игры.');
+      resetGame();
     };
   
 window.addEventListener('keydown', (e) => {
@@ -817,7 +794,7 @@ function loadHighscores() {
 </script>
 
 
-  <div id="nameEntry" style="display:none;" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
+  <div id="nameEntry" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
     <label>Введите имя: <input id="playerName" type="text" / oninput="localStorage.setItem(\'catgame-name\', this.value)" value=""+(localStorage.getItem(\'catgame-name\')||"")></label>
     <button onclick="saveHighscore()">Сохранить</button>
   </div>
@@ -914,7 +891,7 @@ canvas {
   <ul id="top50List" style="padding-left:20px; font-size:16px;"></ul>
   <button onclick="document.getElementById('top50Container').style.display='none'">Закрыть</button>
 </div>
-<button id="showTop50Button" style="display:none;" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
+<button id="showTop50Button" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
 
 
 <script>
@@ -974,22 +951,5 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 });
 </script>
 
-
-<script>
-document.getElementById("playButton").addEventListener("click", () => {
-  document.getElementById("mainMenu").style.display = "none";
-  resetGame();
-});
-</script>
-
-
-<script>
-document.getElementById("pauseButton").addEventListener("click", () => {
-  paused = !paused;
-  if (!paused) {
-    gameLoop(); // продолжить игру
-  }
-});
-</script>
 </body>
 </html>
