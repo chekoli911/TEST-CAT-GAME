@@ -529,10 +529,7 @@ if (score >= 110) {
       const dzX = catX - zloiX;
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
-      if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * (1.5 * SCALE);
-        zloiY += (dzY / distZloi) * (1.5 * SCALE);
-      }
+      
             if (distZloi > 1) {
         zloiX += (dzX / distZloi) * (0.35 * SCALE);
         zloiY += (dzY / distZloi) * (0.35 * SCALE);
