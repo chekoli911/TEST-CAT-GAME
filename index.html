@@ -334,6 +334,9 @@ function loadHighscores() {
   <script>
     const canvas = document.getElementById('game');
     const IS_MOBILE = window.innerWidth < 600;
+const SCALE = IS_MOBILE ? 1 : 1.4;
+const ENEMY_SCALE = IS_MOBILE ? 0.7 : 1;
+const FOOD_SCALE = IS_MOBILE ? 0.4 : 0.7;
 
 const MOUSE_SCALE = 0.6;
 const ctx = canvas.getContext('2d');
