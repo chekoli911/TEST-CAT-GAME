@@ -537,12 +537,8 @@ if (score >= 110) {
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
       if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * (1.5 * SCALE);
-        zloiY += (dzY / distZloi) * (1.5 * SCALE);
-      }
-            if (distZloi > 1) {
-        zloiX += (dzX / distZloi) * (0.35 * SCALE);
-        zloiY += (dzY / distZloi) * (0.35 * SCALE);
+        zloiX += (dzX / distZloi) * (0.7 * SCALE);
+        zloiY += (dzY / distZloi) * (0.7 * SCALE);
       }
     }
 
@@ -624,8 +620,7 @@ if (score >= 110) {
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
-        lastFoodTime = Date.now();
-        crunchSound.play();
+crunchSound.play();
         foodEaten++;
         localStorage.setItem("catgame-food-eaten", foodEaten);
         if (score === 1) {
