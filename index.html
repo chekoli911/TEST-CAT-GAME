@@ -274,6 +274,14 @@ function loadHighscores() {
 </div>
 
 <canvas id="game"></canvas>
+
+<div id="pauseOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); color:white; font-size:48px; text-align:center; padding-top:200px; z-index:200;">
+  ПАУЗА
+</div>
+<button id="pauseButton" style="position:absolute; top:135px; left:20px; background:rgba(255,255,255,0.2); color:white; border:none; padding:6px 12px; font-size:18px; border-radius:6px; z-index:150;">
+  Отдохнуть
+</button>
+
 <div id="desktopShareWrapper">
   <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
@@ -985,6 +993,29 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     mainMenu.style.display = "none";
     resetGame();
   });
+</script>
+
+
+<script>
+  let isPaused = false;
+
+  document.getElementById("pauseButton").addEventListener("click", () => {
+    isPaused = !isPaused;
+    const overlay = document.getElementById("pauseOverlay");
+    overlay.style.display = isPaused ? "block" : "none";
+  });
+
+  // блокировка update и draw при паузе
+  const originalUpdate = update;
+  const originalDraw = draw;
+
+  update = function() {
+    if (!isPaused) originalUpdate();
+  };
+
+  draw = function() {
+    if (!isPaused) originalDraw();
+  };
 </script>
 
 </body>
