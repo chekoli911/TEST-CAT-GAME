@@ -9,7 +9,27 @@
 @media (max-width: 600px) {
   #scoreBoard {
     font-size: 10px !important;
+  
+  // Злой кот атакует
+  if (currentLevel > 1) {
+    const now = Date.now();
+    const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
+    if (playerToZloi < 55 && now - lastHitTime > 4000) {
+      lastHitTime = now;
+      hitSound.play();
+      lives--;
+      if (lives <= 0) {
+        gameRunning = false;
+        restartButton.style.display = 'block';
+        document.getElementById('shareButton').style.display = 'block';
+        document.getElementById('desktopShareButton').style.display = 'block';
+        document.getElementById('nameEntry').style.display = 'block';
+        document.getElementById('showTop50Button').style.display = 'block';
+      }
+    }
   }
+
+}
   #highscores {
     font-size: 10px !important;
   }
@@ -390,21 +410,7 @@ let firstMoveMade = false;
       foodY = Math.random() * (canvas.height - 50);
       restartButton.style.display = 'none';
       startTimer();
-      const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
-      const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
-        lastHitTime = now;
-        hitSound.play();
-        lives--;
-        if (lives <= 0) {
-        gameRunning = false;
-        restartButton.style.display = 'block';
-      document.getElementById('shareButton').style.display = 'block';
-      document.getElementById('desktopShareButton').style.display = 'block';
-          document.getElementById('nameEntry').style.display = 'block';
-      document.getElementById('showTop50Button').style.display = 'block';
-        return;
-      }
+      
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
