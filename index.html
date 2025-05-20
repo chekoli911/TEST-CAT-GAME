@@ -333,8 +333,12 @@ function loadHighscores() {
 
   <script>
     const canvas = document.getElementById('game');
-    const SCALE = window.innerWidth < 600 ? 1 : 1.4;
-const FOOD_SCALE = 0.5;
+    const IS_MOBILE = window.innerWidth < 600;
+
+const SCALE = IS_MOBILE ? 1 : 1.4;         // 🐱 Кот
+const ENEMY_SCALE = IS_MOBILE ? 0.7 : 1;   // 😾 Злой кот
+const MOUSE_SCALE = IS_MOBILE ? 0.5 : 0.8; // 🐭 Мышь
+const FOOD_SCALE = IS_MOBILE ? 0.4 : 0.7;  // 🍽 Корм
 const ENEMY_SCALE = 0.8;
 const MOUSE_SCALE = 0.6;
 const ctx = canvas.getContext('2d');
