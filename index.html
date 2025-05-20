@@ -273,13 +273,13 @@ function loadHighscores() {
 
   <canvas id="game"></canvas>
 <div id="desktopShareWrapper">
-  <button id="desktopShareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="desktopShareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 16px 36px; font-size: 24px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
 
 <div id="mobileShareWrapper">
-  <button id="shareButton" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
+  <button id="shareButton" style="display:none;" style="display: none; position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); padding: 8px 18px; font-size: 14px; background: #34aadf; color: white; border: 1px solid #ccc; border-radius: 10px; z-index: 20;">
     Поделиться в Telegram
   </button>
 </div>
@@ -803,7 +803,7 @@ function loadHighscores() {
 </script>
 
 
-  <div id="nameEntry" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
+  <div id="nameEntry" style="display:none;" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:20;">
     <label>Введите имя: <input id="playerName" type="text" / oninput="localStorage.setItem(\'catgame-name\', this.value)" value=""+(localStorage.getItem(\'catgame-name\')||"")></label>
     <button onclick="saveHighscore()">Сохранить</button>
   </div>
@@ -900,7 +900,7 @@ canvas {
   <ul id="top50List" style="padding-left:20px; font-size:16px;"></ul>
   <button onclick="document.getElementById('top50Container').style.display='none'">Закрыть</button>
 </div>
-<button id="showTop50Button" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
+<button id="showTop50Button" style="display:none;" style="display:none; position:absolute; top:70%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть топ-50 игроков</button>
 
 
 <script>
