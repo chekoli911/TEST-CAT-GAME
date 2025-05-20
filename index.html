@@ -448,7 +448,7 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 12 === 0) {
+if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
@@ -719,7 +719,7 @@ if (score >= 110) {
       }
       // Обновляем кадр анимации кота
 catAnimationTimer++;
-if (catAnimationTimer % 12 === 0) {
+if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
