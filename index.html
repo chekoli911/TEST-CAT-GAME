@@ -616,79 +616,17 @@ if (score >= 110) {
     }
 
     function gameLoop() {
-      if (!gameRunning || paused) return;
-      update();
-      if (score >= 110 && currentLevel < 12) {
-        currentLevel = 12;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 100 && currentLevel < 11) {
-        currentLevel = 11;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 90 && currentLevel < 10) {
-        currentLevel = 10;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 80 && currentLevel < 9) {
-        currentLevel = 9;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 70 && currentLevel < 8) {
-        currentLevel = 8;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 60 && currentLevel < 7) {
-        currentLevel = 7;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 50 && currentLevel < 6) {
-        currentLevel = 6;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 40 && currentLevel < 5) {
-        currentLevel = 5;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 30 && currentLevel < 4) {
-        currentLevel = 4;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 20 && currentLevel < 3) {
-        currentLevel = 3;
-        timeLeft = 45;
-        startTimer();
-      } else if (score >= 10 && currentLevel < 2) {
-        currentLevel = 2;
-        timeLeft = 45;
-        startTimer();
-      }
+  if (!gameRunning) return;
 
-      draw();
-      const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
-      const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
-        lastHitTime = now;
-        hitSound.play();
-        lives--;
-        if (lives <= 0) {
-        gameRunning = false;
-        restartButton.style.display = 'block';
-      document.getElementById('shareButton').style.display = 'block';
-      document.getElementById('desktopShareButton').style.display = 'block';
-          document.getElementById('nameEntry').style.display = 'block';
-      document.getElementById('showTop50Button').style.display = 'block';
-        return;
-      }
-      }
-      // Обновляем кадр анимации кота
-catAnimationTimer++;
-if (catAnimationTimer % 16 === 0) {
-  catFrameIndex = (catFrameIndex + 1) % catFrameCount;
+  if (!paused) {
+    update();
+    draw();
+  } else {
+    draw(); // Показать экран паузы
+  }
+
+  requestAnimationFrame(gameLoop);
 }
-
-requestAnimationFrame(gameLoop);
-    }
 
     restartButton.addEventListener('click', () => {
       window.location.href = 'https://chekoli911.github.io/cat-game/';
@@ -964,9 +902,6 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 <script>
 document.getElementById("pauseButton").addEventListener("click", () => {
   paused = !paused;
-  if (!paused) {
-    gameLoop();
-  }
 });
 </script>
 </body>
