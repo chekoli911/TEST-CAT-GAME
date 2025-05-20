@@ -412,7 +412,7 @@ let timerInterval;
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -438,9 +438,9 @@ requestAnimationFrame(gameLoop);
     function startTimer() {
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
+        if (!isPaused && timeLeft > 0) {
           timeLeft--;
-        } else {
+        } else if (!isPaused) {
           clearInterval(timerInterval);
           gameRunning = false;
           restartButton.style.display = 'block';
@@ -680,7 +680,7 @@ if (score >= 110) {
       draw();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
