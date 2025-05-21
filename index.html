@@ -587,25 +587,25 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       ctx.font = '24px sans-serif';
 
       // Фон под Level
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(5, 5, 120, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Level: ${currentLevel}`, 10, 30);
 
       // Фон под сердца
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(5, 95, 120, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`${'💛'.repeat(lives)}`, 10, 120);
 
       // Фон под Score
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(5, 35, 120, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Score: ${score}`, 10, 60);
 
       // Фон под Time
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(5, 65, 120, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Time: ${timeLeft}`, 10, 90);
@@ -959,7 +959,7 @@ function loadHighscores() {
   Мои достижения
 </button>
 
-  <div id="highscores" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.2); color:white; padding:10px; font-size:14px;">
+  <div id="highscores" style="position:absolute; top:5px; right:5px; background:rgba(0,0,0,0.1); color:white; padding:10px; font-size:14px;">
     <div><b>Топ рекордов:</b></div>
     <ul id="highscoreList" style="padding-left: 18px;"></ul>
   </div>
