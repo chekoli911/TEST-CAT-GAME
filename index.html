@@ -432,43 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let timerInterval;
 let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0");
 
-    
-const feedAchievements = [
-  { value: 100, title: 'Маленький обжора', description: 'Первая миска опустошена' },
-  { value: 200, title: 'Начинающий хрумстер', description: 'Только разогрел аппетит' },
-  { value: 300, title: 'Кормолюб', description: 'Всё вкуснее и вкуснее!' },
-  { value: 400, title: 'Уверенный поедатель', description: 'Играешь — значит кушаешь!' },
-  { value: 500, title: 'Сытый кот', description: 'Кто-то тут перекусил на славу' },
-  { value: 600, title: 'Жеватель месяца', description: 'Защита жевательной кармы' },
-  { value: 700, title: 'Поглотитель гранул', description: 'Корм исчезает в никуда...' },
-  { value: 800, title: 'Не оставил ни кусочка', description: 'Даже пыль не осталась' },
-  { value: 900, title: 'Тарелка чиста', description: 'Без воды, без хлеба — всё ушло' },
-  { value: 1000, title: 'Кошачий гурман', description: 'Мастер вкуса и аппетита' },
-  { value: 1200, title: 'Питомец с характером', description: 'Ты не просто кот, ты воин миски' },
-  { value: 1400, title: 'Эпический хрум', description: 'Хрумнул — и полегчало' },
-  { value: 1600, title: 'Кот-аристократ', description: 'Ешь красиво, играешь уверенно' },
-  { value: 1800, title: 'Пушистый опустошитель', description: 'Враг каждой упаковки' },
-  { value: 2000, title: 'Босс по корму', description: 'Корм? Был корм. Его больше нет' },
-  { value: 2300, title: 'Рейдер мисок', description: 'Миска, миска, ты следующая' },
-  { value: 2600, title: 'Пищевой доминатор', description: 'Вся еда — твоя' },
-  { value: 3000, title: 'Хищник холодильников', description: 'Теперь ты и туда лазишь' },
-  { value: 3500, title: 'Профессиональный едок', description: 'Не игра, а обед' },
-  { value: 4000, title: 'Золотой желудок', description: 'Ты достоин золотого мискокота' },
-  { value: 4500, title: 'Кот в законе', description: 'Уважение на районе среди всех котов' },
-  { value: 5000, title: 'Кормовый монстр', description: 'Страшный зверь... поедающий всё' },
-  { value: 5500, title: 'Грануложор', description: 'Даже сухой корм тебе вкусен' },
-  { value: 6000, title: 'Тот самый кот из рекламы', description: 'Ты был в рекламе корма. Да-да.' },
-  { value: 7000, title: 'Легенда миски', description: 'Никто не ел столько, сколько ты' },
-  { value: 8000, title: 'Пожиратель галактики', description: 'Планеты из еды — твоя мечта' },
-  { value: 8500, title: 'Бездна голода', description: 'Ты всё ещё хочешь есть?' },
-  { value: 9000, title: 'Бог проглотов', description: 'Кто-то зовёт тебя... КОТОБОГ!' },
-  { value: 9500, title: 'Миф о корме', description: 'Твоя история будет передаваться в еде' },
-  { value: 10000, title: 'Финальный кормокот', description: 'Ты сделал это. Корм закончился.' }
-];
-let unlockedAchievements = new Set();
-
-
-function resetGame() {
+    function resetGame() {
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -489,12 +453,9 @@ function resetGame() {
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-setTimeout(() => {
-  document.getElementById('showAchievementsButton').style.display = 'block';
-}, 500);
-
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showFullAchievementsButton').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
       }
@@ -518,12 +479,9 @@ requestAnimationFrame(gameLoop);
           gameRunning = false;
           restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-setTimeout(() => {
-  document.getElementById('showAchievementsButton').style.display = 'block';
-}, 500);
-
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showFullAchievementsButton').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         }
       }, 1000);
@@ -731,14 +689,6 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
                 foodEatenTotal++;
                 document.getElementById("foodTotal").textContent = foodEatenTotal;
         localStorage.setItem("catgame-food-total", foodEatenTotal);
-
-        feedAchievements.forEach(a => {
-          if (foodEatenTotal === a.value && !unlockedAchievements.has(a.value)) {
-            alert(`🏆 Достижение: ${a.title}\n${a.description}`);
-            unlockedAchievements.add(a.value);
-          }
-        });
-
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
@@ -817,12 +767,9 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-setTimeout(() => {
-  document.getElementById('showAchievementsButton').style.display = 'block';
-}, 500);
-
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('showFullAchievementsButton').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
         return;
       }
@@ -965,6 +912,16 @@ function loadHighscores() {
     <label>Введите имя: <input id="playerName" type="text" / oninput="localStorage.setItem(\'catgame-name\', this.value)" value=""+(localStorage.getItem(\'catgame-name\')||"")></label>
     <button onclick="saveHighscore()">Сохранить</button>
   </div>
+
+<div id="fullAchievementsContainer" style="display:none; position:absolute; top:65%; left:50%; transform:translate(-50%, 0); background:white; padding:20px; border-radius:10px; max-height:60%; overflow:auto; z-index:30;">
+  <h3>Мои достижения 🍽</h3>
+  <ul id="fullAchievementsList" style="padding-left:20px; font-size:16px;"></ul>
+  <button onclick="document.getElementById('fullAchievementsContainer').style.display='none'">Закрыть</button>
+</div>
+<button id="showFullAchievementsButton" style="display:none; position:absolute; top:58%; left:50%; transform:translate(-50%, 0); padding:10px 20px; font-size:16px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:25;">
+  Мои достижения
+</button>
+
   <div id="highscores" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.2); color:white; padding:10px; font-size:14px;">
     <div><b>Топ рекордов:</b></div>
     <ul id="highscoreList" style="padding-left: 18px;"></ul>
@@ -1146,24 +1103,7 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 
 
 <script>
-  
-function showAchievementsAtEnd() {
-  const list = document.getElementById("achievementList");
-  list.innerHTML = "";
-  feedAchievements.forEach(a => {
-    const li = document.createElement("li");
-    if (foodEatenTotal >= a.value) {
-      li.innerHTML = `🏅 <b>${a.title}</b>: ${a.description}`;
-    } else {
-      li.innerHTML = `🔒 <b>${a.title}</b>: <i>ещё всё впереди...</i>`;
-    }
-    list.appendChild(li);
-  });
-  document.getElementById("achievementPanel").style.display = "block";
-}
-
-
-let isPaused = false;
+  let isPaused = false;
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
@@ -1191,23 +1131,51 @@ let isPaused = false;
   draw = function() {
     if (!isPaused) originalDraw();
   };
+
+document.getElementById("showFullAchievementsButton").addEventListener("click", () => {
+  const list = document.getElementById("fullAchievementsList");
+  list.innerHTML = "";
+
+  const feedAchievements = [
+    { value: 100, title: "Маленький обжора", description: "Первая миска опустошена" },
+    { value: 200, title: "Начинающий хрумстер", description: "Только разогрел аппетит" },
+    { value: 300, title: "Кормолюб", description: "Всё вкуснее и вкуснее!" },
+    { value: 400, title: "Уверенный поедатель", description: "Играешь — значит кушаешь!" },
+    { value: 500, title: "Сытый кот", description: "Кто-то тут перекусил на славу" },
+    { value: 600, title: "Жеватель месяца", description: "Защита жевательной кармы" },
+    { value: 700, title: "Поглотитель гранул", description: "Корм исчезает в никуда..." },
+    { value: 800, title: "Не оставил ни кусочка", description: "Даже пыль не осталась" },
+    { value: 900, title: "Тарелка чиста", description: "Без воды, без хлеба — всё ушло" },
+    { value: 1000, title: "Кошачий гурман", description: "Мастер вкуса и аппетита" },
+    { value: 1200, title: "Питомец с характером", description: "Ты не просто кот, ты воин миски" },
+    { value: 1400, title: "Эпический хрум", description: "Хрумнул — и полегчало" },
+    { value: 1600, title: "Кот-аристократ", description: "Ешь красиво, играешь уверенно" },
+    { value: 1800, title: "Пушистый опустошитель", description: "Враг каждой упаковки" },
+    { value: 2000, title: "Босс по корму", description: "Корм? Был корм. Его больше нет" },
+    { value: 2300, title: "Рейдер мисок", description: "Миска, миска, ты следующая" },
+    { value: 2600, title: "Пищевой доминатор", description: "Вся еда — твоя" },
+    { value: 3000, title: "Хищник холодильников", description: "Теперь ты и туда лазишь" },
+    { value: 3500, title: "Профессиональный едок", description: "Не игра, а обед" },
+    { value: 4000, title: "Золотой желудок", description: "Ты достоин золотого мискокота" },
+    { value: 4500, title: "Кот в законе", description: "Уважение на районе среди всех котов" },
+    { value: 5000, title: "Кормовый монстр", description: "Страшный зверь... поедающий всё" }
+  ];
+
+  feedAchievements.forEach(a => {
+    const li = document.createElement("li");
+    if (foodEatenTotal >= a.value) {
+      li.innerHTML = `🥇 <b>${a.value}</b>: ${a.title} — ${a.description}`;
+    } else {
+      li.innerHTML = `🔒 <b>${a.value}</b>: <i>ещё всё впереди...</i>`;
+    }
+    list.appendChild(li);
+  });
+
+  document.getElementById("fullAchievementsContainer").style.display = "block";
+});
+
 </script>
 
-
-
-<div id="achievementPanel" style="display:none; position:absolute; top:5%; left:50%; transform:translateX(-50%); width:90%; max-height:80%; overflow:auto; background:white; border-radius:10px; padding:20px; z-index:500;">
-  <h2>🏅 Достижения "Всего наел"</h2>
-  <ul id="achievementList" style="list-style:none; padding:0; font-size:16px;"></ul>
-  <button onclick="document.getElementById('achievementPanel').style.display='none'" style="margin-top:20px; padding:10px 20px; font-size:16px;">Закрыть</button>
-</div>
-
-
-<div id="achievementsContainer" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
-  <h3>🏅 Достижения "Всего наел"</h3>
-  <ul id="achievementsList" style="padding-left:20px; font-size:16px;"></ul>
-  <button onclick="document.getElementById('achievementsContainer').style.display='none'">Закрыть</button>
-</div>
-<button id="showAchievementsButton" style="display:none; position:absolute; top:72%; right:20%; left:50%; transform:translate(-50%, -50%); padding:12px 24px; font-size:18px; background:#fff; border:1px solid #ccc; border-radius:8px; z-index:20;">Посмотреть достижения</button>
 
 </body>
 </html>
