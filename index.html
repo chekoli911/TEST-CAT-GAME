@@ -693,8 +693,14 @@ feedAchievements.forEach(a => {
           if (foodEatenTotal === a.value && !unlockedAchievements.has(a.value)) {
             unlockedAchievements.add(a.value);
 
-            // Создаём анимированную надпись
+            // Удалим предыдущий блок, если есть
+            const oldFlash = document.getElementById("achievementFlash");
+            if (oldFlash) {
+              oldFlash.remove();
+            }
+
             const achievementFlash = document.createElement("div");
+            achievementFlash.id = "achievementFlash";
             achievementFlash.textContent = a.title;
             achievementFlash.style.position = "absolute";
             achievementFlash.style.top = "30%";
@@ -712,8 +718,14 @@ feedAchievements.forEach(a => {
             document.body.appendChild(achievementFlash);
             setTimeout(() => {
               achievementFlash.style.opacity = "0";
-              setTimeout(() => document.body.removeChild(achievementFlash), 2000);
+              setTimeout(() => {
+                if (achievementFlash.parentNode) {
+                  achievementFlash.remove();
+                }
+              }, 2000);
             }, 1000);
+          }
+        });
           }
         });
         if (score === 1) {
