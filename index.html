@@ -334,6 +334,8 @@ function loadHighscores() {
   <script>
     const canvas = document.getElementById('game');
     const SCALE = window.innerWidth < 600 ? 1 : 1.4;
+const FOOD_SCALE = window.innerWidth < 600 ? 0.4 : 0.6;
+const ENEMY_SCALE = window.innerWidth < 600 ? 0.4 : 0.6;
 const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -534,10 +536,10 @@ if (score >= 110) {
       }
       if (currentLevel > 1) {
         ctx.globalAlpha = 0.99;
-        ctx.drawImage(catZloi, zloiX, zloiY, 110 * SCALE, 110 * SCALE);
+        ctx.drawImage(catZloi, zloiX, zloiY, 110 * ENEMY_SCALE, 110 * ENEMY_SCALE);
         ctx.globalAlpha = 1.0;
       }
-      ctx.drawImage(food, foodX, foodY, 110 * SCALE, 110 * SCALE);
+      ctx.drawImage(food, foodX, foodY, 110 * FOOD_SCALE, 110 * FOOD_SCALE);
 
       if (mouseVisible) {
         ctx.drawImage(mouseImg, mouseX, mouseY, 50 * SCALE, 50 * SCALE);
