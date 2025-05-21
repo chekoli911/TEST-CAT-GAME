@@ -378,6 +378,8 @@ const bg10 = new Image();
 const bg11 = new Image();
 const bg12 = new Image();
 const bg13 = new Image();
+const bg14 = new Image();
+const bg15 = new Image();
     bg2.src = 'level2_bg.png';
 bg3.src = '3_level.png';
 bg4.src = '4_level.png';
@@ -390,6 +392,8 @@ bg10.src = '10_level.png';
 bg11.src = '11_level.png';
 bg12.src = '12_level.png';
 bg13.src = '13_level_bg.png';
+bg14.src = '14_level.png';
+bg15.src = '15_level.png';
     bg.src = 'my_bg.png';
 
     const mouseImg = new Image();
@@ -509,7 +513,11 @@ const bgY = (canvas.height - bgDrawHeight) / 2;
 
 
 let activeBg = bg;
-if (score >= 120 && bg13.complete) {
+if (score >= 140 && bg15.complete) {
+  activeBg = bg15;
+} else if (score >= 130 && bg14.complete) {
+  activeBg = bg14;
+} else if (score >= 120 && bg13.complete) {
   activeBg = bg13;
 } else if (score >= 110 && bg12.complete) {
   activeBg = bg12;
@@ -585,7 +593,14 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     
       // Мышка появляется раз в 20 секунд
       const now = Date.now();
-      if (currentLevel === 13 && !mouseVisible && now - mouseCooldown > 10000) {
+      
+      if ((currentLevel === 13 || currentLevel === 14 || currentLevel === 15) && !mouseVisible && now - mouseCooldown > 10000) {
+        mouseX = Math.random() * (canvas.width - 50);
+        mouseY = Math.random() * (canvas.height - 50);
+        mouseVisible = true;
+        mouseAppearTime = now;
+      } else if (currentLevel > 3 && !mouseVisible && now - mouseCooldown > 180000) {
+
         mouseX = Math.random() * (canvas.width - 50);
         mouseY = Math.random() * (canvas.height - 50);
         mouseVisible = true;
@@ -641,7 +656,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       let dxMouse = catX - mouseX;
       let dyMouse = catY - mouseY;
       if (mouseVisible && Math.hypot(dxMouse, dyMouse) < 60) {
-        if (currentLevel === 13) score += 1;
+        if (currentLevel === 15) score += 2;
+        else if (currentLevel === 13 || currentLevel === 14) score += 1;
         mouseSound.play();
         if (lives < 3) lives++;
         mouseVisible = false;
@@ -680,7 +696,15 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     function gameLoop() {
       if (!gameRunning) return;
       update();
-      if (score >= 120 && currentLevel < 13) {
+      if (score >= 140 && currentLevel < 15) {
+        currentLevel = 15;
+        timeLeft = 45;
+        if (currentLevel !== 1) startTimer();
+      } else if (score >= 130 && currentLevel < 14) {
+        currentLevel = 14;
+        timeLeft = 45;
+        if (currentLevel !== 1) startTimer();
+      } else if (score >= 120 && currentLevel < 13) {
         currentLevel = 13;
         timeLeft = 45;
         if (currentLevel !== 1) startTimer();
