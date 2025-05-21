@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cat Game</title>
-  <style>
+  <style> 
 
 @media (max-width: 600px) {
   #scoreBoard {
@@ -508,9 +508,9 @@ const bgX = (canvas.width - bgDrawWidth) / 2;
 const bgY = (canvas.height - bgDrawHeight) / 2;
 
 let activeBg = bg;
-} else if (score >= 120) {
+if (score >= 120 && bg13.complete) {
   activeBg = bg13;
-} else if (score >= 110) {
+} else if (score >= 110 {
   activeBg = bg12;
 } else if (score >= 100) {
   activeBg = bg11;
@@ -660,7 +660,7 @@ let activeBg = bg;
       const dx = catX - foodX;
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
-        score+=9;
+        score++;
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
