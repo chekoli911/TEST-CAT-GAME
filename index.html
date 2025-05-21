@@ -103,7 +103,17 @@ canvas {
       cursor: pointer;
       z-index: 10;
     }
-  </style>
+  
+@media (max-width: 600px) {
+  #pauseButton {
+    top: auto !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+</style>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js">
