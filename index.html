@@ -68,16 +68,17 @@ canvas {
       background-size: cover;
     }
     #joystick {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      width: 120px;
-      height: 120px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #fff;
-      border-radius: 50%;
-      touch-action: none;
-    }
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1); /* полупрозрачный фон */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* полупрозрачная рамка */
+  border-radius: 50%;
+  touch-action: none;
+  opacity: 0.3; /* общий уровень видимости */
+}
     #stick {
       position: absolute;
       left: 40px;
@@ -273,7 +274,7 @@ function loadHighscores() {
 @media (min-width: 601px) {
   #joystick {
     opacity: 0 !important;
-    pointer-events: none !important;
+    pointer-events: auto !important;
   }
 }
 </style>
