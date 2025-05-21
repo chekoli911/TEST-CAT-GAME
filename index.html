@@ -490,6 +490,13 @@ let bgDrawWidth, bgDrawHeight;
 if (canvasAspect > bgAspect) {
   bgDrawWidth = canvas.width;
   bgDrawHeight = canvas.width / bgAspect;
+
+    // Отладка: рисуем хитбоксы
+    ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+    ctx.strokeRect(catX, catY, 110 * SCALE, 110 * SCALE);
+    ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+    ctx.strokeRect(foodX, foodY, 110 * FOOD_SCALE, 110 * FOOD_SCALE);
+    
 } else {
   bgDrawHeight = canvas.height;
   bgDrawWidth = canvas.height * bgAspect;
