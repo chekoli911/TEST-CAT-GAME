@@ -455,6 +455,7 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
   bgMusic.pause(); // Останавливаем музыку
   restartButton.style.display = 'block';
   document.getElementById('shareButton').style.display = 'block';
+  bgMusic.pause(); // Останавливаем музыку при показе кнопки поделиться
   document.getElementById('desktopShareButton').style.display = 'block';
   document.getElementById('nameEntry').style.display = 'block';
   document.getElementById('showFullAchievementsButton').style.display = 'block';
@@ -482,6 +483,7 @@ requestAnimationFrame(gameLoop);
           gameRunning = false;
           restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
+  bgMusic.pause(); // Останавливаем музыку при показе кнопки поделиться
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showFullAchievementsButton').style.display = 'block';
@@ -770,6 +772,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
+  bgMusic.pause(); // Останавливаем музыку при показе кнопки поделиться
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showFullAchievementsButton').style.display = 'block';
