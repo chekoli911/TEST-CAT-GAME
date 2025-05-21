@@ -489,7 +489,9 @@ function resetGame() {
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-document.getElementById('showAchievementsButton').style.display = 'block';
+setTimeout(() => {
+  document.getElementById('showAchievementsButton').style.display = 'block';
+}, 500);
 showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
@@ -516,7 +518,9 @@ requestAnimationFrame(gameLoop);
           gameRunning = false;
           restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-document.getElementById('showAchievementsButton').style.display = 'block';
+setTimeout(() => {
+  document.getElementById('showAchievementsButton').style.display = 'block';
+}, 500);
 showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
@@ -813,7 +817,9 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
-document.getElementById('showAchievementsButton').style.display = 'block';
+setTimeout(() => {
+  document.getElementById('showAchievementsButton').style.display = 'block';
+}, 500);
 showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
