@@ -662,7 +662,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dx = catX - foodX;
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
-        score++;
+        score+=10;
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
