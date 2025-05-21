@@ -333,7 +333,7 @@ function loadHighscores() {
 
   <script>
     const canvas = document.getElementById('game');
-    const SCALE = window.innerWidth < 600 ? 1 : 1.6;
+    const SCALE = window.innerWidth < 600 ? 1 : 1.4;
 const FOOD_SCALE = window.innerWidth < 600 ? 0.624 : 0.936;
 const ENEMY_SCALE = window.innerWidth < 600 ? 0.52 : 0.78;
 const ctx = canvas.getContext('2d');
@@ -638,7 +638,7 @@ if (score >= 110) {
 
     // Обновление позиции кота с ограничениями
 
-      catX = Math.max(-10 * SCALE, Math.min(canvas.width - 80 * SCALE, catX + velocity.x));
+      catX = Math.max(-5 * SCALE, Math.min(canvas.width - 80 * SCALE, catX + velocity.x));
       catY = Math.max(-20 * SCALE, Math.min(canvas.height - 80 * SCALE, catY + velocity.y));
 
       if (Date.now() - lastFoodTime > 4000) {
