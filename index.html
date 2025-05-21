@@ -377,6 +377,7 @@ const bg9 = new Image();
 const bg10 = new Image();
 const bg11 = new Image();
 const bg12 = new Image();
+const bg13 = new Image();
     bg2.src = 'level2_bg.png';
 bg3.src = '3_level.png';
 bg4.src = '4_level.png';
@@ -388,6 +389,7 @@ bg9.src = '9_level.png';
 bg10.src = '10_level.png';
 bg11.src = '11_level.png';
 bg12.src = '12_level.png';
+bg13.src = '13_level_bg.png';
     bg.src = 'my_bg.png';
 
     const mouseImg = new Image();
@@ -506,7 +508,9 @@ const bgX = (canvas.width - bgDrawWidth) / 2;
 const bgY = (canvas.height - bgDrawHeight) / 2;
 
 let activeBg = bg;
-if (score >= 110) {
+if (score >= 120) {
+  activeBg = bg13;
+} else if (score >= 110) {
   activeBg = bg12;
 } else if (score >= 100) {
   activeBg = bg11;
@@ -579,7 +583,12 @@ if (score >= 110) {
     
       // Мышка появляется раз в 20 секунд
       const now = Date.now();
-      if (currentLevel > 3 && !mouseVisible && now - mouseCooldown > 180000) {
+      if (currentLevel === 13 && !mouseVisible && now - mouseCooldown > 10000) {
+        mouseX = Math.random() * (canvas.width - 50);
+        mouseY = Math.random() * (canvas.height - 50);
+        mouseVisible = true;
+        mouseAppearTime = now;
+      } else if (currentLevel > 3 && !mouseVisible && now - mouseCooldown > 180000) {
         mouseX = Math.random() * (canvas.width - 50);
         mouseY = Math.random() * (canvas.height - 50);
         mouseVisible = true;
@@ -630,6 +639,7 @@ if (score >= 110) {
       let dxMouse = catX - mouseX;
       let dyMouse = catY - mouseY;
       if (mouseVisible && Math.hypot(dxMouse, dyMouse) < 60) {
+        if (currentLevel === 13) score += 1;
         mouseSound.play();
         if (lives < 3) lives++;
         mouseVisible = false;
@@ -638,7 +648,7 @@ if (score >= 110) {
 
     // Обновление позиции кота с ограничениями
 
-      catX = Math.max(-20 * SCALE, Math.min(canvas.width - 80 * SCALE, catX + velocity.x));
+      catX = Math.max(-10 * SCALE, Math.min(canvas.width - 80 * SCALE, catX + velocity.x));
       catY = Math.max(-20 * SCALE, Math.min(canvas.height - 80 * SCALE, catY + velocity.y));
 
       if (Date.now() - lastFoodTime > 4000) {
@@ -668,7 +678,11 @@ if (score >= 110) {
     function gameLoop() {
       if (!gameRunning) return;
       update();
-      if (score >= 110 && currentLevel < 12) {
+      if (score >= 120 && currentLevel < 13) {
+        currentLevel = 13;
+        timeLeft = 45;
+        if (currentLevel !== 1) startTimer();
+      } else if (score >= 110 && currentLevel < 12) {
         currentLevel = 12;
         timeLeft = 45;
         if (currentLevel !== 1) startTimer();
