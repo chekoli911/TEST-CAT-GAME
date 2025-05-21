@@ -335,8 +335,9 @@ function loadHighscores() {
     const canvas = document.getElementById('game');
     const IS_MOBILE = window.innerWidth < 600;
 const SCALE = IS_MOBILE ? 1.3 : 1.8;
+const FOOD_SCALE = IS_MOBILE ? 0.3 : 0.5;
 const ENEMY_SCALE = IS_MOBILE ? 0.5 : 0.8;
-const FOOD_SCALE = IS_MOBILE ? 0.9 : 0.9;
+const FOOD_SCALE = IS_MOBILE ? 0.2 : 0.3;
 
 const MOUSE_SCALE = 0.9;
 const ctx = canvas.getContext('2d');
@@ -542,7 +543,7 @@ if (score >= 110) {
         ctx.drawImage(catZloi, zloiX, zloiY, 110 * ENEMY_SCALE, 110 * ENEMY_SCALE);
         ctx.globalAlpha = 1.0;
       }
-      ctx.drawImage(food, foodX, foodY, 110 * SCALE, 110 * SCALE);
+      ctx.drawImage(food, foodX, foodY, 110 * FOOD_SCALE, 110 * FOOD_SCALE);
 
       if (mouseVisible) {
         ctx.drawImage(mouseImg, mouseX, mouseY, 50 * MOUSE_SCALE, 50 * MOUSE_SCALE);
@@ -553,7 +554,7 @@ if (score >= 110) {
       ctx.fillText(`Очки: ${score}`, 20, 30);
       ctx.fillText(`Время: ${timeLeft}`, 20, 60);
       ctx.fillText(`Уровень: ${currentLevel}`, 20, 120);
-      ctx.fillText(`Жизни: ${'❤️'.repeat(lives)}`, 20, 90);
+      ctx.fillText(`Жизни: ${'💛'.repeat(lives)}`, 20, 90);
     }
 
     function update() {
