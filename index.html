@@ -689,6 +689,33 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
                 foodEatenTotal++;
                 document.getElementById("foodTotal").textContent = foodEatenTotal;
         localStorage.setItem("catgame-food-total", foodEatenTotal);
+feedAchievements.forEach(a => {
+          if (foodEatenTotal === a.value && !unlockedAchievements.has(a.value)) {
+            unlockedAchievements.add(a.value);
+
+            // Создаём анимированную надпись
+            const achievementFlash = document.createElement("div");
+            achievementFlash.textContent = a.title;
+            achievementFlash.style.position = "absolute";
+            achievementFlash.style.top = "30%";
+            achievementFlash.style.left = "50%";
+            achievementFlash.style.transform = "translateX(-50%)";
+            achievementFlash.style.fontSize = "28px";
+            achievementFlash.style.padding = "10px 20px";
+            achievementFlash.style.background = "rgba(255, 255, 255, 0.8)";
+            achievementFlash.style.border = "2px solid gold";
+            achievementFlash.style.borderRadius = "12px";
+            achievementFlash.style.zIndex = "1000";
+            achievementFlash.style.opacity = "1";
+            achievementFlash.style.transition = "opacity 2s ease-out";
+
+            document.body.appendChild(achievementFlash);
+            setTimeout(() => {
+              achievementFlash.style.opacity = "0";
+              setTimeout(() => document.body.removeChild(achievementFlash), 2000);
+            }, 1000);
+          }
+        });
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
