@@ -333,11 +333,9 @@ function loadHighscores() {
 
   <script>
     const canvas = document.getElementById('game');
-    const SCALE = window.innerWidth < 600 ? 1 : 1.5;
+    const SCALE = window.innerWidth < 600 ? 1 : 1.4;
 const FOOD_SCALE = window.innerWidth < 600 ? 0.624 : 0.936;
-const ENEMY_SCALE = window.innerWidth < 600 ? 0.52 : 0.88;
-const zloiSpeed = 0.6;
-const dogBaseSpeed = 0.2;
+const ENEMY_SCALE = window.innerWidth < 600 ? 0.52 : 0.78;
 const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -379,9 +377,6 @@ const bg9 = new Image();
 const bg10 = new Image();
 const bg11 = new Image();
 const bg12 = new Image();
-const bg13 = new Image();
-const bg14 = new Image();
-const bg15 = new Image();
     bg2.src = 'level2_bg.png';
 bg3.src = '3_level.png';
 bg4.src = '4_level.png';
@@ -393,9 +388,6 @@ bg9.src = '9_level.png';
 bg10.src = '10_level.png';
 bg11.src = '11_level.png';
 bg12.src = '12_level.png';
-bg13.src = '13_level_renamed.png';
-bg14.src = '14_level_renamed.png';
-bg15.src = '15_level_renamed.png';
     bg.src = 'my_bg.png';
 
     const mouseImg = new Image();
@@ -514,13 +506,7 @@ const bgX = (canvas.width - bgDrawWidth) / 2;
 const bgY = (canvas.height - bgDrawHeight) / 2;
 
 let activeBg = bg;
-if (score >= 140) {
-  activeBg = bg15;
-} else if (score >= 130) {
-  activeBg = bg14;
-} else if (score >= 120) {
-  activeBg = bg13;
-} else if (score >= 110) {
+if (score >= 110) {
   activeBg = bg12;
 } else if (score >= 100) {
   activeBg = bg11;
@@ -682,19 +668,7 @@ if (score >= 140) {
     function gameLoop() {
       if (!gameRunning) return;
       update();
-      if (score >= 140 && currentLevel < 15) {
-        currentLevel = 15;
-        timeLeft = 45;
-        if (currentLevel !== 1) startTimer();
-      } else if (score >= 130 && currentLevel < 14) {
-        currentLevel = 14;
-        timeLeft = 45;
-        if (currentLevel !== 1) startTimer();
-      } else if (score >= 120 && currentLevel < 13) {
-        currentLevel = 13;
-        timeLeft = 45;
-        if (currentLevel !== 1) startTimer();
-      } else if (score >= 110 && currentLevel < 12) {
+      if (score >= 110 && currentLevel < 12) {
         currentLevel = 12;
         timeLeft = 45;
         if (currentLevel !== 1) startTimer();
