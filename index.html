@@ -489,6 +489,7 @@ function resetGame() {
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
+showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
@@ -514,6 +515,7 @@ requestAnimationFrame(gameLoop);
           gameRunning = false;
           restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
+showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
@@ -809,6 +811,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         gameRunning = false;
         restartButton.style.display = 'block';
       document.getElementById('shareButton').style.display = 'block';
+showAchievementsAtEnd();
       document.getElementById('desktopShareButton').style.display = 'block';
           document.getElementById('nameEntry').style.display = 'block';
       document.getElementById('showTop50Button').style.display = 'block';
@@ -1134,7 +1137,24 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 
 
 <script>
-  let isPaused = false;
+  
+function showAchievementsAtEnd() {
+  const list = document.getElementById("achievementList");
+  list.innerHTML = "";
+  feedAchievements.forEach(a => {
+    const li = document.createElement("li");
+    if (foodEatenTotal >= a.value) {
+      li.innerHTML = `🏅 <b>${a.title}</b>: ${a.description}`;
+    } else {
+      li.innerHTML = `🔒 <b>${a.title}</b>: <i>ещё всё впереди...</i>`;
+    }
+    list.appendChild(li);
+  });
+  document.getElementById("achievementPanel").style.display = "block";
+}
+
+
+let isPaused = false;
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
@@ -1164,6 +1184,13 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
   };
 </script>
 
+
+
+<div id="achievementPanel" style="display:none; position:absolute; top:5%; left:50%; transform:translateX(-50%); width:90%; max-height:80%; overflow:auto; background:white; border-radius:10px; padding:20px; z-index:500;">
+  <h2>🏅 Достижения "Всего наел"</h2>
+  <ul id="achievementList" style="list-style:none; padding:0; font-size:16px;"></ul>
+  <button onclick="document.getElementById('achievementPanel').style.display='none'" style="margin-top:20px; padding:10px 20px; font-size:16px;">Закрыть</button>
+</div>
 
 </body>
 </html>
