@@ -587,25 +587,25 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       ctx.font = '24px sans-serif';
 
       // Фон под Level
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
       ctx.fillRect(5, 5, 160, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Level: ${currentLevel}`, 10, 30);
 
       // Фон под сердца
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.0)';
       ctx.fillRect(85, 5, 120, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`${'💛'.repeat(lives)}`, 90, 30);
 
       // Фон под Score
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
       ctx.fillRect(5, 35, 160, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Score: ${score}`, 10, 60);
 
       // Фон под Time
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
       ctx.fillRect(5, 65, 160, 30);
       ctx.fillStyle = 'white';
       ctx.fillText(`Time: ${timeLeft}`, 10, 90);
