@@ -432,7 +432,43 @@ document.addEventListener("DOMContentLoaded", () => {
 let timerInterval;
 let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0");
 
-    function resetGame() {
+    
+const feedAchievements = [
+  { value: 100, title: 'Маленький обжора', description: 'Первая миска опустошена' },
+  { value: 200, title: 'Начинающий хрумстер', description: 'Только разогрел аппетит' },
+  { value: 300, title: 'Кормолюб', description: 'Всё вкуснее и вкуснее!' },
+  { value: 400, title: 'Уверенный поедатель', description: 'Играешь — значит кушаешь!' },
+  { value: 500, title: 'Сытый кот', description: 'Кто-то тут перекусил на славу' },
+  { value: 600, title: 'Жеватель месяца', description: 'Защита жевательной кармы' },
+  { value: 700, title: 'Поглотитель гранул', description: 'Корм исчезает в никуда...' },
+  { value: 800, title: 'Не оставил ни кусочка', description: 'Даже пыль не осталась' },
+  { value: 900, title: 'Тарелка чиста', description: 'Без воды, без хлеба — всё ушло' },
+  { value: 1000, title: 'Кошачий гурман', description: 'Мастер вкуса и аппетита' },
+  { value: 1200, title: 'Питомец с характером', description: 'Ты не просто кот, ты воин миски' },
+  { value: 1400, title: 'Эпический хрум', description: 'Хрумнул — и полегчало' },
+  { value: 1600, title: 'Кот-аристократ', description: 'Ешь красиво, играешь уверенно' },
+  { value: 1800, title: 'Пушистый опустошитель', description: 'Враг каждой упаковки' },
+  { value: 2000, title: 'Босс по корму', description: 'Корм? Был корм. Его больше нет' },
+  { value: 2300, title: 'Рейдер мисок', description: 'Миска, миска, ты следующая' },
+  { value: 2600, title: 'Пищевой доминатор', description: 'Вся еда — твоя' },
+  { value: 3000, title: 'Хищник холодильников', description: 'Теперь ты и туда лазишь' },
+  { value: 3500, title: 'Профессиональный едок', description: 'Не игра, а обед' },
+  { value: 4000, title: 'Золотой желудок', description: 'Ты достоин золотого мискокота' },
+  { value: 4500, title: 'Кот в законе', description: 'Уважение на районе среди всех котов' },
+  { value: 5000, title: 'Кормовый монстр', description: 'Страшный зверь... поедающий всё' },
+  { value: 5500, title: 'Грануложор', description: 'Даже сухой корм тебе вкусен' },
+  { value: 6000, title: 'Тот самый кот из рекламы', description: 'Ты был в рекламе корма. Да-да.' },
+  { value: 7000, title: 'Легенда миски', description: 'Никто не ел столько, сколько ты' },
+  { value: 8000, title: 'Пожиратель галактики', description: 'Планеты из еды — твоя мечта' },
+  { value: 8500, title: 'Бездна голода', description: 'Ты всё ещё хочешь есть?' },
+  { value: 9000, title: 'Бог проглотов', description: 'Кто-то зовёт тебя... КОТОБОГ!' },
+  { value: 9500, title: 'Миф о корме', description: 'Твоя история будет передаваться в еде' },
+  { value: 10000, title: 'Финальный кормокот', description: 'Ты сделал это. Корм закончился.' }
+];
+let unlockedAchievements = new Set();
+
+
+function resetGame() {
       loadHighscores();
       catX = 100;
       catY = 100;
@@ -678,7 +714,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dx = catX - foodX;
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
-        score+=10;
+        score++;
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
@@ -687,6 +723,14 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
                 foodEatenTotal++;
                 document.getElementById("foodTotal").textContent = foodEatenTotal;
         localStorage.setItem("catgame-food-total", foodEatenTotal);
+
+        feedAchievements.forEach(a => {
+          if (foodEatenTotal === a.value && !unlockedAchievements.has(a.value)) {
+            alert(`🏆 Достижение: ${a.title}\n${a.description}`);
+            unlockedAchievements.add(a.value);
+          }
+        });
+
         if (score === 1) {
           bgMusic.play().catch(() => {});
         }
