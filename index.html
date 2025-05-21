@@ -489,8 +489,8 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       score = 0;
       timeLeft = 45;
       gameRunning = true;
-      foodX = Math.random() * (canvas.width - 50);
-      foodY = Math.random() * (canvas.height - 50);
+      foodX = Math.random() * (canvas.width - 110);
+        foodY = Math.random() * (canvas.height - 110);
       restartButton.style.display = 'none';
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
@@ -747,8 +747,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       catY = Math.max(-20 * SCALE, Math.min(canvas.height - 80 * SCALE, catY + velocity.y));
 
       if (Date.now() - lastFoodTime > 4000) {
-        foodX = Math.random() * (canvas.width - 50);
-        foodY = Math.random() * (canvas.height - 50);
+        foodX = Math.random() * (canvas.width - 110);
+        foodY = Math.random() * (canvas.height - 110);
         lastFoodTime = Date.now();
       }
 
@@ -756,8 +756,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
         score++;
-        foodX = Math.random() * (canvas.width - 50);
-        foodY = Math.random() * (canvas.height - 50);
+        foodX = Math.random() * (canvas.width - 110);
+        foodY = Math.random() * (canvas.height - 110);
         lastFoodTime = Date.now();
         lastFoodTime = Date.now();
         crunchSound.play();
