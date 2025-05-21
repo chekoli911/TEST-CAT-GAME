@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cat Game</title>
-  <style> 
+  <style>
 
 @media (max-width: 600px) {
   #scoreBoard {
@@ -507,33 +507,35 @@ if (canvasAspect > bgAspect) {
 const bgX = (canvas.width - bgDrawWidth) / 2;
 const bgY = (canvas.height - bgDrawHeight) / 2;
 
+
 let activeBg = bg;
 if (score >= 120 && bg13.complete) {
   activeBg = bg13;
-} else if (score >= 110 {
+} else if (score >= 110 && bg12.complete) {
   activeBg = bg12;
-} else if (score >= 100) {
+} else if (score >= 100 && bg11.complete) {
   activeBg = bg11;
-} else if (score >= 90) {
+} else if (score >= 90 && bg10.complete) {
   activeBg = bg10;
-} else if (score >= 80) {
+} else if (score >= 80 && bg9.complete) {
   activeBg = bg9;
-} else if (score >= 70) {
+} else if (score >= 70 && bg8.complete) {
   activeBg = bg8;
-} else if (score >= 60) {
+} else if (score >= 60 && bg7.complete) {
   activeBg = bg7;
-} else if (score >= 50) {
+} else if (score >= 50 && bg6.complete) {
   activeBg = bg6;
-} else if (score >= 40) {
+} else if (score >= 40 && bg5.complete) {
   activeBg = bg5;
-} else if (score >= 30) {
+} else if (score >= 30 && bg4.complete) {
   activeBg = bg4;
-} else if (score >= 20) {
+} else if (score >= 20 && bg3.complete) {
   activeBg = bg3;
-} else if (score >= 10) {
+} else if (score >= 10 && bg2.complete) {
   activeBg = bg2;
 }
-      ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
+ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
+;
 
       if (Date.now() - lastHitTime < 3000 && Math.floor(Date.now() / 200) % 2 === 0) {
         // не рисуем кота (мигание)
@@ -660,7 +662,7 @@ if (score >= 120 && bg13.complete) {
       const dx = catX - foodX;
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
-        score+=10;
+        score++;
         foodX = Math.random() * (canvas.width - 50);
         foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
