@@ -16,7 +16,7 @@
 
   /* Уменьшаем размеры объектов в 2 раза */
   .food, .player, .enemy, .mouse {
-    transform: scale(0.5);
+    transform: scale(1);
     transform-origin: center center;
   }
 }
@@ -772,7 +772,6 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
 
     function gameLoop() {
       if (!gameRunning) return;
-  if (isPaused) return;
       update();
       if (score >= 140 && currentLevel < 15) {
         currentLevel = 15;
