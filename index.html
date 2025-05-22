@@ -1261,5 +1261,60 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
 </script>
 
 
+
+<div id="joystickRight" style="display: none; position: absolute; bottom: 20px; right: 20px; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 50%; touch-action: none; opacity: 0.3; z-index: 100;">
+  <div id="stickRight" style="position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; pointer-events: none;"></div>
+</div>
 </body>
+
+<script>
+  const joystickRight = document.getElementById('joystickRight');
+  const stickRight = document.getElementById('stickRight');
+  let centerRight = { x: joystickRight.offsetLeft + 60, y: joystickRight.offsetTop + 60 };
+
+  joystickRight.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  joystickRight.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const dx = touch.clientX - centerRight.x;
+      const dy = touch.clientY - centerRight.y;
+      const dist = Math.min(Math.hypot(dx, dy), 40);
+      const angle = Math.atan2(dy, dx);
+      const x = dist * Math.cos(angle);
+      const y = dist * Math.sin(angle);
+
+      stickRight.style.left = `${60 + x - 20}px`;
+      stickRight.style.top = `${60 + y - 20}px`;
+
+      velocity.x = x * 0.08;
+      velocity.y = y * 0.08;
+    }
+  }, { passive: false });
+
+  joystickRight.addEventListener('touchend', () => {
+    stickRight.style.left = '40px';
+    stickRight.style.top = '40px';
+    velocity.x = 0;
+    velocity.y = 0;
+  });
+
+  window.addEventListener('resize', () => {
+    centerRight = {
+      x: joystickRight.offsetLeft + joystickRight.offsetWidth / 2,
+      y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
+    };
+  });
+
+  // Показать правый джойстик при старте игры
+  document.getElementById("startGameButton").addEventListener("click", () => {
+    joystickRight.style.display = "block";
+  });
+</script>
+
 </html>
