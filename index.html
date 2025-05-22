@@ -1314,6 +1314,10 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   // Показать правый джойстик при старте игры
   document.getElementById("startGameButton").addEventListener("click", () => {
     joystickRight.style.display = "block";
+  centerRight = {
+    x: joystickRight.offsetLeft + joystickRight.offsetWidth / 2,
+    y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
+  };
   });
 </script>
 
