@@ -198,6 +198,12 @@ function loadHighscores() {
     });
 }
 
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -241,6 +247,12 @@ function loadHighscores() {
       });
     });
 }
+
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
 
 </script>
 <script>
@@ -298,6 +310,12 @@ function loadHighscores() {
       });
     });
 }
+
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
 
 </script>
 
@@ -985,6 +1003,12 @@ function loadHighscores() {
     });
 }
 
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 
@@ -1017,6 +1041,12 @@ setTimeout(() => {
     }
   }
 }, 500); // ждём пока другие loadHighscores закончат
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 <style>
@@ -1088,6 +1118,12 @@ canvas {
       clearInterval(waitForTop5);
     }
   }, 200);
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 <div id="top50Container" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
@@ -1130,6 +1166,12 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
     document.getElementById("top50Container").style.display = "block";
   });
 });
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 
@@ -1140,6 +1182,12 @@ document.getElementById("shareButton").addEventListener("click", () => {
   const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
 });
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 <script>
@@ -1153,6 +1201,12 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     window.open(fallbackUrl, "_blank");
   }, 800);
 });
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 
@@ -1178,6 +1232,12 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 
@@ -1262,6 +1322,12 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   document.getElementById("fullAchievementsContainer").style.display = "block";
 });
 
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 
@@ -1323,6 +1389,12 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
     y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
   };
   });
+
+window.onload = () => {
+  resetGame();
+  requestAnimationFrame(gameLoop);
+};
+
 </script>
 
 </html>
