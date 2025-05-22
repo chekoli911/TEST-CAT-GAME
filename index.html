@@ -473,6 +473,7 @@ let mouseAppearTime = 0;
     let currentLevel = 1;
     let lastHitTime = 0;
 let enemyActive = false;
+let enemyResumeDelay = 0;
     let lastFoodTime = Date.now();
     
 let timerStarted = false;
@@ -653,7 +654,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     }
 
     function update() {
-      if (currentLevel > 1 && enemyActive) {
+      if (currentLevel > 1 && enemyActive && enemyResumeDelay <= 0) {
       // Злой кот двигается к игроку
       const dzX = catX - zloiX;
       const dzY = catY - zloiY;
@@ -774,6 +775,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
 
     function gameLoop() {
       if (!gameRunning) return;
+  if (enemyResumeDelay > 0) enemyResumeDelay--;
       update();
       if (score >= 140 && currentLevel < 15) {
         currentLevel = 15;
