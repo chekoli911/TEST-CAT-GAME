@@ -198,6 +198,38 @@ function loadHighscores() {
     });
 }
 
+
+const joystickRight = document.getElementById('joystickRight');
+const stickRight = document.getElementById('stickRight');
+let centerRight = { x: joystickRight.offsetLeft + 60, y: joystickRight.offsetTop + 60 };
+
+joystickRight.addEventListener('touchmove', (e) => {
+  const touch = e.touches[0];
+  const dx = touch.clientX - centerRight.x;
+  const dy = touch.clientY - centerRight.y;
+  const dist = Math.min(Math.hypot(dx, dy), 40);
+  const angle = Math.atan2(dy, dx);
+  const x = dist * Math.cos(angle);
+  const y = dist * Math.sin(angle);
+
+  stickRight.style.left = `${60 + x - 20}px`;
+  stickRight.style.top = `${60 + y - 20}px`;
+
+  velocity.x += x * 0.08;
+  velocity.y += y * 0.08;
+});
+
+joystickRight.addEventListener('touchend', () => {
+  stickRight.style.left = '40px';
+  stickRight.style.top = '40px';
+  velocity.x = 0;
+  velocity.y = 0;
+});
+
+window.addEventListener('resize', () => {
+  centerRight = { x: joystickRight.offsetLeft + 60, y: joystickRight.offsetTop + 60 };
+});
+
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -1259,36 +1291,7 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
 });
 
 
-const joystickRight = document.getElementById('joystickRight');
-const stickRight = document.getElementById('stickRight');
-let centerRight = { x: joystickRight.offsetLeft + 60, y: joystickRight.offsetTop + 60 };
 
-joystickRight.addEventListener('touchmove', (e) => {
-  const touch = e.touches[0];
-  const dx = touch.clientX - centerRight.x;
-  const dy = touch.clientY - centerRight.y;
-  const dist = Math.min(Math.hypot(dx, dy), 40);
-  const angle = Math.atan2(dy, dx);
-  const x = dist * Math.cos(angle);
-  const y = dist * Math.sin(angle);
-
-  stickRight.style.left = `${60 + x - 20}px`;
-  stickRight.style.top = `${60 + y - 20}px`;
-
-  velocity.x = x * 0.08;
-  velocity.y = y * 0.08;
-});
-
-joystickRight.addEventListener('touchend', () => {
-  stickRight.style.left = '40px';
-  stickRight.style.top = '40px';
-  velocity.x = 0;
-  velocity.y = 0;
-});
-
-window.addEventListener('resize', () => {
-  centerRight = { x: joystickRight.offsetLeft + 60, y: joystickRight.offsetTop + 60 };
-});
 
 </script>
 
