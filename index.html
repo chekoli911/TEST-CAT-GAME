@@ -496,7 +496,7 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -836,7 +836,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       draw();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
