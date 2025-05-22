@@ -198,49 +198,6 @@ function loadHighscores() {
     });
 }
 
-
-
-
-
-const joystickRight = document.getElementById('joystickRight');
-const stickRight = document.getElementById('stickRight');
-let centerRight = { x: joystickRight.offsetLeft + joystickRight.offsetWidth / 2, y: joystickRight.offsetTop + joystickRight.offsetHeight / 2 };
-
-joystickRight.addEventListener('touchstart', (e) => {
-  if (e.touches.length > 0) {
-    e.preventDefault();
-  }
-}, { passive: false });
-
-joystickRight.addEventListener('touchmove', (e) => {
-  if (e.touches.length > 0) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const dx = touch.clientX - centerRight.x;
-    const dy = touch.clientY - centerRight.y;
-    const dist = Math.min(Math.hypot(dx, dy), 40);
-    const angle = Math.atan2(dy, dx);
-    const x = dist * Math.cos(angle);
-    const y = dist * Math.sin(angle);
-
-    stickRight.style.left = `${60 + x - 20}px`;
-stickRight.style.top = `${60 + y - 20}px`;
-velocity2.x = x * 0.08;
-velocity2.y = y * 0.08;
-    velocity.y += y * 0.08;
-  }
-}, { passive: false });
-
-joystickRight.addEventListener('touchend', () => {
-  stickRight.style.left = '40px';
-  stickRight.style.top = '40px';
-  
-});
-
-window.addEventListener('resize', () => {
-  centerRight = { x: joystickRight.offsetLeft + joystickRight.offsetWidth / 2, y: joystickRight.offsetTop + joystickRight.offsetHeight / 2 };
-});
-
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -532,8 +489,8 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       score = 0;
       timeLeft = 45;
       gameRunning = true;
-      foodX = Math.random() * (canvas.width - 110);
-        foodY = Math.random() * (canvas.height - 110);
+      foodX = Math.random() * (canvas.width - 50);
+      foodY = Math.random() * (canvas.height - 50);
       restartButton.style.display = 'none';
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
@@ -790,8 +747,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       catY = Math.max(-20 * SCALE, Math.min(canvas.height - 80 * SCALE, catY + velocity.y));
 
       if (Date.now() - lastFoodTime > 4000) {
-        foodX = Math.random() * (canvas.width - 110);
-        foodY = Math.random() * (canvas.height - 110);
+        foodX = Math.random() * (canvas.width - 50);
+        foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
       }
 
@@ -799,8 +756,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
         score++;
-        foodX = Math.random() * (canvas.width - 110);
-        foodY = Math.random() * (canvas.height - 110);
+        foodX = Math.random() * (canvas.width - 50);
+        foodY = Math.random() * (canvas.height - 50);
         lastFoodTime = Date.now();
         lastFoodTime = Date.now();
         crunchSound.play();
@@ -924,18 +881,17 @@ requestAnimationFrame(gameLoop);
       const y = dist * Math.sin(angle);
 
       stick.style.left = `${60 + x - 20}px`;
-stick.style.top = `${60 + y - 20}px`;
-velocity.x = x * 0.08;
-velocity.y = y * 0.08;
-velocity.y = velocity1.y + velocity2.y;
+      stick.style.top = `${60 + y - 20}px`;
+
+      velocity.x = x * 0.08;
+      velocity.y = y * 0.08;
     });
 
     joystick.addEventListener('touchend', () => {
-      stick.style.left = `${60 + x - 20}px`;
-stick.style.top = `${60 + y - 20}px`;
-velocity.x = x * 0.08;
-velocity.y = y * 0.08;
-velocity.y = velocity1.y + velocity2.y;
+      stick.style.left = '40px';
+      stick.style.top = '40px';
+      velocity.x = 0;
+      velocity.y = 0;
     });
 
     window.addEventListener('resize', () => {
@@ -1302,16 +1258,8 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   document.getElementById("fullAchievementsContainer").style.display = "block";
 });
 
-
-
-
 </script>
 
-
-
-  <div id="joystickRight" style="display: none; position: absolute; background: rgba(255,0,0,0.1); z-index: 9999; bottom: 20px; right: 20px; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 50%; touch-action: none; opacity: 0.3; z-index: 100;">
-    <div id="stickRight" style="position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; pointer-events: none;"></div>
-  </div>
 
 </body>
 </html>
