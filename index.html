@@ -1185,7 +1185,14 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
-  const resumeBtn = document.getElementById("resumeButton");
+  const resumeBtn = const resumeButton = document.getElementById("resumeButton");
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+;
 
   pauseBtn.addEventListener("click", () => {
   if (typeof bgMusic !== "undefined") bgMusic.pause();
