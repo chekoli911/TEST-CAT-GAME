@@ -491,13 +491,13 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       score = 0;
       timeLeft = 45;
       gameRunning = true;
-      foodX = Math.random() * (canvas.width - 50);
-      foodY = Math.random() * (canvas.height - 50);
+      foodX = 30 + Math.random() * (canvas.width - 160);
+        foodY = 30 + Math.random() * (canvas.height - 160);
       restartButton.style.display = 'none';
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -738,7 +738,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         if (currentLevel === 15) score += 2;
         else if (currentLevel === 13 || currentLevel === 14) score += 1;
         mouseSound.play();
-        if (lives < 3) lives++;
+        if (lives < 3) if (lives < 4) lives++;
         mouseVisible = false;
         mouseCooldown = now;
       }
@@ -749,8 +749,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       catY = Math.max(-20 * SCALE, Math.min(canvas.height - 80 * SCALE, catY + velocity.y));
 
       if (Date.now() - lastFoodTime > 4000) {
-        foodX = Math.random() * (canvas.width - 50);
-        foodY = Math.random() * (canvas.height - 50);
+        foodX = 30 + Math.random() * (canvas.width - 160);
+        foodY = 30 + Math.random() * (canvas.height - 160);
         lastFoodTime = Date.now();
       }
 
@@ -759,8 +759,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       if (Math.hypot(dx, dy) < 50) {
         score++;
         if (currentLevel === 2 && !enemyActive) enemyActive = true;
-        foodX = Math.random() * (canvas.width - 50);
-        foodY = Math.random() * (canvas.height - 50);
+        foodX = 30 + Math.random() * (canvas.width - 160);
+        foodY = 30 + Math.random() * (canvas.height - 160);
         lastFoodTime = Date.now();
         lastFoodTime = Date.now();
         crunchSound.play();
@@ -838,7 +838,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       draw();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
