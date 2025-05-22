@@ -198,12 +198,6 @@ function loadHighscores() {
     });
 }
 
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -247,12 +241,6 @@ function loadHighscores() {
       });
     });
 }
-
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
 
 </script>
 <script>
@@ -310,12 +298,6 @@ function loadHighscores() {
       });
     });
 }
-
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
 
 </script>
 
@@ -515,7 +497,7 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -756,7 +738,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         if (currentLevel === 15) score += 2;
         else if (currentLevel === 13 || currentLevel === 14) score += 1;
         mouseSound.play();
-        if (lives < 3) if (lives < 4) lives++;
+        if (lives < 3) lives++;
         mouseVisible = false;
         mouseCooldown = now;
       }
@@ -856,7 +838,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       draw();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -1003,12 +985,6 @@ function loadHighscores() {
     });
 }
 
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 
@@ -1041,12 +1017,6 @@ setTimeout(() => {
     }
   }
 }, 500); // ждём пока другие loadHighscores закончат
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 <style>
@@ -1118,12 +1088,6 @@ canvas {
       clearInterval(waitForTop5);
     }
   }, 200);
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 <div id="top50Container" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
@@ -1166,12 +1130,6 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
     document.getElementById("top50Container").style.display = "block";
   });
 });
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 
@@ -1182,12 +1140,6 @@ document.getElementById("shareButton").addEventListener("click", () => {
   const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
 });
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 <script>
@@ -1201,12 +1153,6 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     window.open(fallbackUrl, "_blank");
   }, 800);
 });
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 
@@ -1232,12 +1178,6 @@ window.onload = () => {
     document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 
@@ -1322,12 +1262,6 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   document.getElementById("fullAchievementsContainer").style.display = "block";
 });
 
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 
@@ -1389,12 +1323,6 @@ window.onload = () => {
     y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
   };
   });
-
-window.onload = () => {
-  resetGame();
-  requestAnimationFrame(gameLoop);
-};
-
 </script>
 
 </html>
