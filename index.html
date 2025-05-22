@@ -738,7 +738,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         if (currentLevel === 15) score += 2;
         else if (currentLevel === 13 || currentLevel === 14) score += 1;
         mouseSound.play();
-        if (lives < 3) if (lives < 4) lives++;
+        if (lives < 4) lives++;
         mouseVisible = false;
         mouseCooldown = now;
       }
