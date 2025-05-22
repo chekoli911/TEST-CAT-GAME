@@ -198,6 +198,13 @@ function loadHighscores() {
     });
 }
 
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -241,6 +248,13 @@ function loadHighscores() {
       });
     });
 }
+
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
 
 </script>
 <script>
@@ -298,6 +312,13 @@ function loadHighscores() {
       });
     });
 }
+
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
 
 </script>
 
@@ -472,7 +493,6 @@ let mouseAppearTime = 0;
     let lives = 3;
     let currentLevel = 1;
     let lastHitTime = 0;
-let enemyActive = false;
     let lastFoodTime = Date.now();
     
 let timerStarted = false;
@@ -496,7 +516,7 @@ let foodEatenTotal = parseInt(localStorage.getItem("catgame-food-total") || "0")
       if (currentLevel !== 1) startTimer();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (!isPaused && currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -653,7 +673,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     }
 
     function update() {
-      if (currentLevel > 1 && enemyActive) {
+      if (currentLevel > 1) {
       // Злой кот двигается к игроку
       const dzX = catX - zloiX;
       const dzY = catY - zloiY;
@@ -757,7 +777,6 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dy = catY - foodY;
       if (Math.hypot(dx, dy) < 50) {
         score++;
-        if (currentLevel === 2 && !enemyActive) enemyActive = true;
         foodX = 30 + Math.random() * (canvas.width - 160);
         foodY = 30 + Math.random() * (canvas.height - 160);
         lastFoodTime = Date.now();
@@ -836,7 +855,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       draw();
       const playerToZloi = Math.hypot(catX - zloiX, catY - zloiY);
       const now = Date.now();
-      if (!isPaused && currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
+      if (!isPaused && if (currentLevel > 1 && now - lastHitTime > 3000 && playerToZloi < 55) {
         lastHitTime = now;
         hitSound.play();
         lives--;
@@ -983,6 +1002,13 @@ function loadHighscores() {
     });
 }
 
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 
@@ -1015,6 +1041,13 @@ setTimeout(() => {
     }
   }
 }, 500); // ждём пока другие loadHighscores закончат
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 <style>
@@ -1086,6 +1119,13 @@ canvas {
       clearInterval(waitForTop5);
     }
   }, 200);
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 <div id="top50Container" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
@@ -1128,6 +1168,13 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
     document.getElementById("top50Container").style.display = "block";
   });
 });
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 
@@ -1138,6 +1185,13 @@ document.getElementById("shareButton").addEventListener("click", () => {
   const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
 });
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 <script>
@@ -1151,6 +1205,13 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     window.open(fallbackUrl, "_blank");
   }, 800);
 });
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 
@@ -1176,6 +1237,13 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 
@@ -1185,14 +1253,7 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
-  const resumeBtn = const resumeButton = document.getElementById("resumeButton");
-
-resumeButton.addEventListener("click", () => {
-  isPaused = false;
-  pauseOverlay.style.display = "none";
-  requestAnimationFrame(gameLoop);
-});
-;
+  const resumeBtn = document.getElementById("resumeButton");
 
   pauseBtn.addEventListener("click", () => {
   if (typeof bgMusic !== "undefined") bgMusic.pause();
@@ -1267,6 +1328,13 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   document.getElementById("fullAchievementsContainer").style.display = "block";
 });
 
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 
@@ -1328,6 +1396,13 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
     y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
   };
   });
+
+resumeButton.addEventListener("click", () => {
+  isPaused = false;
+  pauseOverlay.style.display = "none";
+  requestAnimationFrame(gameLoop);
+});
+
 </script>
 
 </html>
