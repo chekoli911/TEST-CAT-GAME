@@ -224,9 +224,9 @@ joystickRight.addEventListener('touchmove', (e) => {
     const y = dist * Math.sin(angle);
 
     stickRight.style.left = `${60 + x - 20}px`;
-    stickRight.style.top = `${60 + y - 20}px`;
-
-    velocity.x += x * 0.08;
+stickRight.style.top = `${60 + y - 20}px`;
+velocity2.x = x * 0.08;
+velocity2.y = y * 0.08;
     velocity.y += y * 0.08;
   }
 }, { passive: false });
@@ -234,8 +234,8 @@ joystickRight.addEventListener('touchmove', (e) => {
 joystickRight.addEventListener('touchend', () => {
   stickRight.style.left = '40px';
   stickRight.style.top = '40px';
-  velocity.x = 0;
-  velocity.y = 0;
+  velocity.x = velocity1.x + velocity2.x;
+velocity.y = velocity1.y + velocity2.y;
 });
 
 window.addEventListener('resize', () => {
@@ -508,7 +508,8 @@ let mouseChangeDirCooldown = 0;
 let mouseCooldown = 0;
 let mouseAppearTime = 0;
 
-    let velocity = { x: 0, y: 0 };
+    let velocity1 = { x: 0, y: 0 }, velocity2 = { x: 0, y: 0 };
+let velocity = { x: 0, y: 0 };
     let foodX, foodY;
     let score = 0;
     let timeLeft = 45;
@@ -925,17 +926,18 @@ requestAnimationFrame(gameLoop);
       const y = dist * Math.sin(angle);
 
       stick.style.left = `${60 + x - 20}px`;
-      stick.style.top = `${60 + y - 20}px`;
-
-      velocity.x = x * 0.08;
-      velocity.y = y * 0.08;
+stick.style.top = `${60 + y - 20}px`;
+velocity1.x = x * 0.08;
+velocity1.y = y * 0.08;
+velocity.y = velocity1.y + velocity2.y;
     });
 
     joystick.addEventListener('touchend', () => {
-      stick.style.left = '40px';
-      stick.style.top = '40px';
-      velocity.x = 0;
-      velocity.y = 0;
+      stick.style.left = `${60 + x - 20}px`;
+stick.style.top = `${60 + y - 20}px`;
+velocity1.x = x * 0.08;
+velocity1.y = y * 0.08;
+velocity.y = velocity1.y + velocity2.y;
     });
 
     window.addEventListener('resize', () => {
