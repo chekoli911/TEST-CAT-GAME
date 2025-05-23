@@ -556,22 +556,7 @@ if (canvasAspect > bgAspect) {
   bgDrawWidth = canvas.width;
   bgDrawHeight = canvas.width / bgAspect;
 
-    
-// Хитбоксы
-ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'; // кот
-ctx.strokeRect(catX, catY, 110 * SCALE, 110 * SCALE);
-
-ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // злой кот
-ctx.strokeRect(zloiX, zloiY, 110 * SCALE, 110 * SCALE);
-
-ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)'; // еда
-ctx.strokeRect(foodX, foodY, 110 * FOOD_SCALE, 110 * FOOD_SCALE);
-
-if (mouseVisible) {
-  ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)'; // мышь
-  ctx.strokeRect(mouseX, mouseY, 50 * SCALE, 50 * SCALE);
-}
-
+    // Отладка: рисуем хитбоксы
     ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
     ctx.strokeRect(catX, catY, 110 * SCALE, 110 * SCALE);
     ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
