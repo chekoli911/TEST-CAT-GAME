@@ -203,13 +203,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -263,13 +267,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -336,13 +344,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -570,7 +582,10 @@ if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-requestAnimationFrame(gameLoop);
+if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
 
     function startTimer() {
@@ -824,7 +839,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
 
     function gameLoop() {
       if (!gameRunning) return;
-  if (enemyResumeDelay > 0) enemyResumeDelay--;
+  
+  if (isPaused) { gameLoopRunning = false; return; }if (enemyResumeDelay > 0) enemyResumeDelay--;
       update();
       if (score >= 140 && currentLevel < 15) {
         currentLevel = 15;
@@ -909,7 +925,10 @@ if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-requestAnimationFrame(gameLoop);
+if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
 
     restartButton.addEventListener('click', () => {
@@ -1039,13 +1058,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1087,13 +1110,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1174,13 +1201,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1232,13 +1263,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1258,13 +1293,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1287,13 +1326,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1328,13 +1371,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1345,6 +1392,7 @@ document.addEventListener("keydown", (e) => {
 
 <script>
   let isPaused = false;
+let gameLoopRunning = false;
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
@@ -1428,13 +1476,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
@@ -1505,13 +1557,17 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     if (!isPaused) {
       isPaused = true;
+    gameLoopRunning = false;
       pauseOverlay.style.display = "flex";
     } else {
       isPaused = false;
       pauseOverlay.style.display = "none";
       invincibleAfterPauseUntil = Date.now() + 5000;
       if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      requestAnimationFrame(gameLoop);
+      if (!gameLoopRunning) {
+        gameLoopRunning = true;
+        requestAnimationFrame(gameLoop);
+      }
     }
   }
 });
