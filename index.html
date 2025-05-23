@@ -573,7 +573,15 @@ if (canvasAspect > bgAspect) {
   bgDrawWidth = canvas.width;
   bgDrawHeight = canvas.width / bgAspect;
 
-    // Отладка: рисуем хитбоксы
+    
+  if (valerianActive) {
+    ctx.drawImage(valerianImage, valerianX, valerianY, 50, 50);
+    if (Date.now() - valerianTimer > 5000) {
+      valerianActive = false;
+    }
+  }
+
+  // Отладка: рисуем хитбоксы
     ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
     ctx.strokeRect(catX, catY, 110 * SCALE, 110 * SCALE);
     ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
