@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
+<style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+</style>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cat Game</title>
@@ -331,7 +340,7 @@ function loadHighscores() {
 </head>
 <body>
 
-<div id="loadingScreen" style="position: absolute; inset: 0; background: black; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999;">
+  <div id="loadingScreen" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999; background: url('main_load.png') center center / cover no-repeat; background-color: black; background-size: cover;  display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999;">
   <div style="color: white; font-size: 20px; margin-bottom: 20px;">Загрузка...</div>
   <div style="width: 80%; height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
     <div id="loadingBar" style="height: 100%; width: 0%; background: white; transition: width 0.2s;"></div>
