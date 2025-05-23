@@ -198,26 +198,6 @@ function loadHighscores() {
     });
 }
 
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js">
 function saveHighscore() {
@@ -261,26 +241,6 @@ function loadHighscores() {
       });
     });
 }
-
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
 
 </script>
 <script>
@@ -338,26 +298,6 @@ function loadHighscores() {
       });
     });
 }
-
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
 
 </script>
 
@@ -582,10 +522,7 @@ if (catAnimationTimer % 56 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
+requestAnimationFrame(gameLoop);
     }
 
     function startTimer() {
@@ -839,8 +776,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
 
     function gameLoop() {
       if (!gameRunning) return;
-  
-  if (isPaused) { gameLoopRunning = false; return; }if (enemyResumeDelay > 0) enemyResumeDelay--;
+  if (enemyResumeDelay > 0) enemyResumeDelay--;
       update();
       if (score >= 140 && currentLevel < 15) {
         currentLevel = 15;
@@ -925,10 +861,7 @@ if (catAnimationTimer % 16 === 0) {
   catFrameIndex = (catFrameIndex + 1) % catFrameCount;
 }
 
-if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
+requestAnimationFrame(gameLoop);
     }
 
     restartButton.addEventListener('click', () => {
@@ -1053,26 +986,6 @@ function loadHighscores() {
     });
 }
 
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 
@@ -1105,26 +1018,6 @@ setTimeout(() => {
     }
   }
 }, 500); // ждём пока другие loadHighscores закончат
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 <style>
@@ -1196,26 +1089,6 @@ canvas {
       clearInterval(waitForTop5);
     }
   }, 200);
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 <div id="top50Container" style="display:none; position:absolute; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border-radius:10px; max-height:80%; overflow:auto; z-index:30;">
@@ -1258,26 +1131,6 @@ document.getElementById("showTop50Button").addEventListener("click", () => {
     document.getElementById("top50Container").style.display = "block";
   });
 });
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 
@@ -1288,26 +1141,6 @@ document.getElementById("shareButton").addEventListener("click", () => {
   const telegramUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(shareText)}`;
   window.open(telegramUrl, '_blank');
 });
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 <script>
@@ -1321,26 +1154,6 @@ document.getElementById("desktopShareButton").addEventListener("click", () => {
     window.open(fallbackUrl, "_blank");
   }, 800);
 });
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 
@@ -1366,33 +1179,12 @@ document.addEventListener("keydown", (e) => {
     document.getElementById("pauseButton").style.display = "block";
     resetGame();
   });
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 
 
 <script>
   let isPaused = false;
-let gameLoopRunning = false;
 
   const pauseBtn = document.getElementById("pauseButton");
   const pauseOverlay = document.getElementById("pauseOverlay");
@@ -1471,26 +1263,6 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   document.getElementById("fullAchievementsContainer").style.display = "block";
 });
 
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 
@@ -1552,26 +1324,6 @@ document.addEventListener("keydown", (e) => {
     y: joystickRight.offsetTop + joystickRight.offsetHeight / 2
   };
   });
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    if (!isPaused) {
-      isPaused = true;
-    gameLoopRunning = false;
-      pauseOverlay.style.display = "flex";
-    } else {
-      isPaused = false;
-      pauseOverlay.style.display = "none";
-      invincibleAfterPauseUntil = Date.now() + 5000;
-      if (typeof bgMusic !== "undefined") bgMusic.play().catch(() => {});
-      if (!gameLoopRunning) {
-        gameLoopRunning = true;
-        requestAnimationFrame(gameLoop);
-      }
-    }
-  }
-});
-
 </script>
 
 </html>
