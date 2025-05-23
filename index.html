@@ -8,12 +8,24 @@
     background-image: url('main_load_mobile.png') !important;
   }
 }
+
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
 </style>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cat Game</title>
   <style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+
 
 @media (max-width: 600px) {
   #scoreBoard {
@@ -312,6 +324,12 @@ function loadHighscores() {
 
 
 <style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+
 @media (min-width: 601px) {
   #mobileShareWrapper { display: none !important; }
 }
@@ -319,6 +337,12 @@ function loadHighscores() {
 
 
 <style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+
 @media (max-width: 600px) {
   #desktopShareWrapper { display: none !important; }
 }</style>
@@ -329,6 +353,12 @@ function loadHighscores() {
 
 
 <style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+
 @media (min-width: 601px) {
   #joystick {
     opacity: 0 !important;
@@ -340,10 +370,12 @@ function loadHighscores() {
 </head>
 <body>
 
-  <div id="loadingScreen" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999; background: url('main_load.png') center center / cover no-repeat; background-color: black; background-size: cover;  display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999;">
-  <div style="color: white; font-size: 20px; margin-bottom: 20px;">Загрузка...</div>
+  <div id="loadingScreen" style="background: url('main_load.png') center center / cover no-repeat;" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999; background: url('main_load.png') center center / cover no-repeat; background-color: black; background-size: cover;  display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999;">
+  
+  <img src="main_start.png" alt="Cat Run" style="width: 240px; max-width: 80%; margin-bottom: 20px;">
+<div style="color: white; font-size: 20px; margin-bottom: 20px;">Котоподгрузка</div>
   <div style="width: 80%; height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
-    <div id="loadingBar" style="height: 100%; width: 0%; background: white; transition: width 0.2s;"></div>
+    <div id="loadingBar" style="height: 100%; width: 0%; background: white; transition: width 0.2s; opacity: 0;" style="height: 100%; width: 0%; background: white; transition: width 0.2s;"></div>
   </div>
 </div>
 
@@ -1038,6 +1070,12 @@ setTimeout(() => {
 </script>
 
 <style>
+@media (max-width: 600px) {
+  #loadingScreen {
+    background-image: url('main_load_mobile.png') !important;
+  }
+}
+
 
 @media (max-width: 600px) {
   #scoreBoard {
@@ -1288,26 +1326,43 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   <div id="stickRight" style="position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; pointer-events: none;"></div>
 </div>
 
+
+
+
+
+
 <script>
   const loadingScreen = document.getElementById("loadingScreen");
   const loadingBar = document.getElementById("loadingBar");
   const startGameButton = document.getElementById("startGameButton");
 
-  let progress = 0;
-  let loadingInterval = setInterval(() => {
-    progress += Math.random() * 10;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(loadingInterval);
-      loadingScreen.style.display = "none";
-      startGameButton.style.display = "block";
-    }
-    loadingBar.style.width = progress + "%";
-  }, 200);
+  // Показываем полоску через 500мс после старта
+  setTimeout(() => {
+    loadingBar.style.opacity = 1;
+    let progress = 0;
+    let interval = 50;
+    let totalDuration = 5000;
+    let step = 100 / (totalDuration / interval);
 
-  // скрываем кнопку играть до завершения загрузки
-  if (startGameButton) startGameButton.style.display = "none";
+    let loadingInterval = setInterval(() => {
+      progress += step;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(loadingInterval);
+        loadingScreen.style.display = "none";
+        startGameButton.style.display = "block";
+      }
+      loadingBar.style.width = progress + "%";
+    }, interval);
+  }, 500);
+
+  startGameButton.style.display = "none";
 </script>
+
+
+
+
+
 
 </body>
 
