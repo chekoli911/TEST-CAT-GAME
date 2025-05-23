@@ -1288,26 +1288,60 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   <div id="stickRight" style="position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; pointer-events: none;"></div>
 </div>
 
+
 <script>
+  const resources = [
+    'main_load.png',
+    'main_load_mobile.png',
+    'sprites/cat_sprite.png',
+    'sprites/enemy_sprite.png',
+    'sprites/food.png',
+    'sprites/mouse.png',
+    'audio/bg_music.mp3'
+  ];
+
   const loadingScreen = document.getElementById("loadingScreen");
   const loadingBar = document.getElementById("loadingBar");
   const startGameButton = document.getElementById("startGameButton");
 
-  let progress = 0;
-  let loadingInterval = setInterval(() => {
-    progress += Math.random() * 10;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(loadingInterval);
+  let loaded = 0;
+
+  function updateProgress() {
+    const percent = Math.round((loaded / resources.length) * 100);
+    loadingBar.style.width = percent + "%";
+
+    if (loaded >= resources.length) {
       loadingScreen.style.display = "none";
       startGameButton.style.display = "block";
     }
-    loadingBar.style.width = progress + "%";
-  }, 200);
+  }
 
-  // скрываем кнопку играть до завершения загрузки
-  if (startGameButton) startGameButton.style.display = "none";
+  function loadResource(url) {
+    return new Promise((resolve) => {
+      let el;
+      if (url.endsWith(".png") || url.endsWith(".jpg")) {
+        el = new Image();
+        el.onload = () => {
+          loaded++;
+          updateProgress();
+          resolve();
+        };
+      } else if (url.endsWith(".mp3") || url.endsWith(".wav")) {
+        el = new Audio();
+        el.onloadeddata = () => {
+          loaded++;
+          updateProgress();
+          resolve();
+        };
+      }
+      el.src = url;
+    });
+  }
+
+  startGameButton.style.display = "none";
+  Promise.all(resources.map(loadResource));
 </script>
+
 
 </body>
 
