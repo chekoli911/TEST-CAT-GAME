@@ -780,7 +780,7 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         lastFoodTime = Date.now();
 
   // Шанс появления валерьянки 15% начиная с уровня 3
-  if (currentLevel >= 3 && Math.random() < 0.95) {
+  if (currentLevel >= 3 && Math.random() < 0.15) {
     valerianX = 30 + Math.random() * (canvas.width - 160);
     valerianY = 30 + Math.random() * (canvas.height - 160);
     valerianTimer = Date.now();
