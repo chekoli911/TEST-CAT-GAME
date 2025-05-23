@@ -1290,18 +1290,26 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
 
 
 
+
 <script>
   const resources = [
+    'level2_bg.png',
+    'main_load.png',
+    'main_load_mobile.png',
     'main_menu.jpg',
     'main_menu.png',
     'main_start.png',
     'main_start_mobile.png',
+    'mouse_bonus.png',
     'my_bg.png',
     'my_cat.png',
-    'mouse_bonus.png',
-    'food_new.png',
-    'cat_animation.png',
-    'cat_zloi.png',
+    'terra-short-background-music-336035.mp3',
+    '10_level.png',
+    '11_level.png',
+    '12_level.png',
+    '13_level_bg.png',
+    '14_level.png',
+    '15_level.png',
     '3_level.png',
     '4_level.png',
     '5_level.png',
@@ -1309,17 +1317,12 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
     '7_level.png',
     '8_level.png',
     '9_level.png',
-    '10_level.png',
-    '11_level.png',
-    '12_level.png',
-    '13_level_bg.png',
-    '14_level.png',
-    '15_level.png',
-    'level2_bg.png',
-    'intro-sound-2-269294.mp3',
-    'terra-short-background-music-336035.mp3',
+    'cat_animation.png',
+    'cat_zloi.png',
     'crunch.mp3',
-    'dog-bark-type-06-293299_trimmed.mp3'
+    'dog-bark-type-06-293299_trimmed.mp3',
+    'food_new.png',
+    'intro-sound-2-269294.mp3'
   ];
 
   const loadingScreen = document.getElementById("loadingScreen");
@@ -1363,6 +1366,7 @@ document.getElementById("showFullAchievementsButton").addEventListener("click", 
   startGameButton.style.display = "none";
   Promise.all(resources.map(loadResource));
 </script>
+
 
 
 
