@@ -778,6 +778,15 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         foodX = 30 + Math.random() * (canvas.width - 160);
         foodY = 30 + Math.random() * (canvas.height - 160);
         lastFoodTime = Date.now();
+
+  // Шанс появления валерьянки 15% начиная с уровня 3
+  if (currentLevel >= 3 && Math.random() < 0.15) {
+    valerianX = 30 + Math.random() * (canvas.width - 160);
+    valerianY = 30 + Math.random() * (canvas.height - 160);
+    valerianTimer = Date.now();
+    valerianActive = true;
+  }
+
       }
 
       const dx = catX - foodX;
@@ -788,6 +797,15 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         foodX = 30 + Math.random() * (canvas.width - 160);
         foodY = 30 + Math.random() * (canvas.height - 160);
         lastFoodTime = Date.now();
+
+  // Шанс появления валерьянки 15% начиная с уровня 3
+  if (currentLevel >= 3 && Math.random() < 0.15) {
+    valerianX = 30 + Math.random() * (canvas.width - 160);
+    valerianY = 30 + Math.random() * (canvas.height - 160);
+    valerianTimer = Date.now();
+    valerianActive = true;
+  }
+
         lastFoodTime = Date.now();
         crunchSound.play();
                 foodEatenTotal++;
