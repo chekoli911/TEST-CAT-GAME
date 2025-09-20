@@ -694,9 +694,9 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
       const dzY = catY - zloiY;
       const distZloi = Math.hypot(dzX, dzY);
       if (distZloi > 1) {
-        // Очень медленное движение злой собаки
-        zloiX += (dzX / distZloi) * (0.03 * SCALE);
-        zloiY += (dzY / distZloi) * (0.03 * SCALE);
+        // Собака идет пешком - очень медленно
+        zloiX += (dzX / distZloi) * (0.005 * SCALE);
+        zloiY += (dzY / distZloi) * (0.005 * SCALE);
       }
     }
 
