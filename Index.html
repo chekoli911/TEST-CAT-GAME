@@ -434,6 +434,13 @@ bgMusic.volume = 0.4;
     catZloi.src = 'cat_zloi.png';
     let zloiX = Math.random() * (canvas.width - 110);
     let zloiY = Math.random() * (canvas.height - 110);
+    
+    // НОВАЯ СИСТЕМА ДВИЖЕНИЯ СОБАКИ - ПОЛНЫЙ КОНТРОЛЬ СКОРОСТИ!
+    // DOG_SPEED: скорость движения в пикселях (0.1 = очень медленно, 2.0 = быстро)
+    // DOG_MOVE_INTERVAL: интервал между движениями в кадрах (больше = медленнее)
+    const DOG_SPEED = 0.3; // Пикселей за движение - НАСТРОЙТЕ ЗДЕСЬ!
+    let dogMoveTimer = 0;
+    const DOG_MOVE_INTERVAL = 5; // Каждые 5 кадров - НАСТРОЙТЕ ЗДЕСЬ!
     const restartButton = document.getElementById('restartButton');
 
     
@@ -688,17 +695,35 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     }
 
     function update() {
+      // НОВАЯ ЛОГИКА ДВИЖЕНИЯ СОБАКИ
       if (currentLevel > 1 && enemyActive && enemyResumeDelay <= 0) {
-      // Злой кот двигается к игроку
-      const dzX = catX - zloiX;
-      const dzY = catY - zloiY;
-      const distZloi = Math.hypot(dzX, dzY);
-      if (distZloi > 1) {
-        // Собака идет пешком - очень медленно
-        zloiX += (dzX / distZloi) * (0.00125 * SCALE);
-        zloiY += (dzY / distZloi) * (0.00125 * SCALE);
+        dogMoveTimer++;
+        
+        // Движение только каждые N кадров для контроля скорости
+        if (dogMoveTimer >= DOG_MOVE_INTERVAL) {
+          dogMoveTimer = 0;
+          
+          // Вычисляем направление к коту
+          const dx = catX - zloiX;
+          const dy = catY - zloiY;
+          const distance = Math.hypot(dx, dy);
+          
+          // Если собака не слишком близко к коту
+          if (distance > 5) {
+            // Нормализуем направление и применяем скорость
+            const moveX = (dx / distance) * DOG_SPEED;
+            const moveY = (dy / distance) * DOG_SPEED;
+            
+            // Обновляем позицию собаки
+            zloiX += moveX;
+            zloiY += moveY;
+            
+            // Ограничиваем собаку границами экрана
+            zloiX = Math.max(0, Math.min(canvas.width - 110, zloiX));
+            zloiY = Math.max(0, Math.min(canvas.height - 110, zloiY));
+          }
+        }
       }
-    }
 
     
       // Мышка появляется раз в 20 секунд
