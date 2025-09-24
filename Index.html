@@ -435,12 +435,16 @@ bgMusic.volume = 0.4;
     let zloiX = Math.random() * (canvas.width - 110);
     let zloiY = Math.random() * (canvas.height - 110);
     
-    // НОВАЯ СИСТЕМА ДВИЖЕНИЯ СОБАКИ - ПОЛНЫЙ КОНТРОЛЬ СКОРОСТИ!
+    // НОВАЯ СИСТЕМА ДВИЖЕНИЯ СОБАКИ - СЛУЧАЙНОЕ БЛУЖДАНИЕ!
     // DOG_SPEED: скорость движения в пикселях (0.1 = очень медленно, 2.0 = быстро)
     // DOG_MOVE_INTERVAL: интервал между движениями в кадрах (больше = медленнее)
-    const DOG_SPEED = 0.1; // Пикселей за движение - НАСТРОЙТЕ ЗДЕСЬ!
+    const DOG_SPEED = 0.15; // Пикселей за движение - НАСТРОЙТЕ ЗДЕСЬ!
     let dogMoveTimer = 0;
-    const DOG_MOVE_INTERVAL = 8; // Каждые 8 кадров - НАСТРОЙТЕ ЗДЕСЬ!
+    const DOG_MOVE_INTERVAL = 6; // Каждые 6 кадров - НАСТРОЙТЕ ЗДЕСЬ!
+    let dogDirectionX = 1; // Направление движения по X
+    let dogDirectionY = 0; // Направление движения по Y
+    let dogDirectionChangeTimer = 0;
+    const DOG_DIRECTION_CHANGE_INTERVAL = 120; // Меняет направление каждые 120 кадров
     const restartButton = document.getElementById('restartButton');
 
     
@@ -695,32 +699,53 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
     }
 
     function update() {
-      // НОВАЯ ЛОГИКА ДВИЖЕНИЯ СОБАКИ
+      // НОВАЯ ЛОГИКА ДВИЖЕНИЯ СОБАКИ - СЛУЧАЙНОЕ БЛУЖДАНИЕ
       if (currentLevel > 1 && enemyActive && enemyResumeDelay <= 0) {
         dogMoveTimer++;
+        dogDirectionChangeTimer++;
+        
+        // Меняем направление движения случайным образом
+        if (dogDirectionChangeTimer >= DOG_DIRECTION_CHANGE_INTERVAL) {
+          dogDirectionChangeTimer = 0;
+          
+          // Случайное направление (8 направлений: вверх, вниз, влево, вправо, диагонали)
+          const directions = [
+            {x: 0, y: -1},   // вверх
+            {x: 1, y: -1},   // вправо-вверх
+            {x: 1, y: 0},    // вправо
+            {x: 1, y: 1},    // вправо-вниз
+            {x: 0, y: 1},    // вниз
+            {x: -1, y: 1},   // влево-вниз
+            {x: -1, y: 0},   // влево
+            {x: -1, y: -1}   // влево-вверх
+          ];
+          
+          const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+          dogDirectionX = randomDirection.x;
+          dogDirectionY = randomDirection.y;
+        }
         
         // Движение только каждые N кадров для контроля скорости
         if (dogMoveTimer >= DOG_MOVE_INTERVAL) {
           dogMoveTimer = 0;
           
-          // Вычисляем направление к коту
-          const dx = catX - zloiX;
-          const dy = catY - zloiY;
-          const distance = Math.hypot(dx, dy);
+          // Двигаем собаку в текущем направлении
+          const newX = zloiX + (dogDirectionX * DOG_SPEED);
+          const newY = zloiY + (dogDirectionY * DOG_SPEED);
           
-          // Если собака не слишком близко к коту
-          if (distance > 5) {
-            // Нормализуем направление и применяем скорость
-            const moveX = (dx / distance) * DOG_SPEED;
-            const moveY = (dy / distance) * DOG_SPEED;
-            
-            // Обновляем позицию собаки
-            zloiX += moveX;
-            zloiY += moveY;
-            
-            // Ограничиваем собаку границами экрана
-            zloiX = Math.max(0, Math.min(canvas.width - 110, zloiX));
-            zloiY = Math.max(0, Math.min(canvas.height - 110, zloiY));
+          // Проверяем границы экрана
+          if (newX >= 0 && newX <= canvas.width - 110) {
+            zloiX = newX;
+          } else {
+            // Если достигли границы, меняем направление по X
+            dogDirectionX *= -1;
+          }
+          
+          if (newY >= 0 && newY <= canvas.height - 110) {
+            zloiY = newY;
+          } else {
+            // Если достигли границы, меняем направление по Y
+            dogDirectionY *= -1;
           }
         }
       }
