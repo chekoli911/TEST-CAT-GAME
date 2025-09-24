@@ -441,10 +441,10 @@ bgMusic.volume = 0.4;
     const DOG_SPEED = 0.15; // Пикселей за движение - НАСТРОЙТЕ ЗДЕСЬ!
     let dogMoveTimer = 0;
     const DOG_MOVE_INTERVAL = 6; // Каждые 6 кадров - НАСТРОЙТЕ ЗДЕСЬ!
-    let dogDirectionX = 1; // Направление движения по X
-    let dogDirectionY = 0; // Направление движения по Y
+    let dogDirectionX = 0; // Направление движения по X (0 = не двигается)
+    let dogDirectionY = 0; // Направление движения по Y (0 = не двигается)
     let dogDirectionChangeTimer = 0;
-    const DOG_DIRECTION_CHANGE_INTERVAL = 120; // Меняет направление каждые 120 кадров
+    const DOG_DIRECTION_CHANGE_INTERVAL = 60; // Меняет направление каждые 60 кадров (быстрее)
     const restartButton = document.getElementById('restartButton');
 
     
@@ -704,8 +704,8 @@ ctx.drawImage(activeBg, bgX, bgY, bgDrawWidth, bgDrawHeight);
         dogMoveTimer++;
         dogDirectionChangeTimer++;
         
-        // Меняем направление движения случайным образом
-        if (dogDirectionChangeTimer >= DOG_DIRECTION_CHANGE_INTERVAL) {
+        // Инициализируем направление при первом запуске или меняем направление
+        if (dogDirectionChangeTimer >= DOG_DIRECTION_CHANGE_INTERVAL || (dogDirectionX === 0 && dogDirectionY === 0)) {
           dogDirectionChangeTimer = 0;
           
           // Случайное направление (8 направлений: вверх, вниз, влево, вправо, диагонали)
